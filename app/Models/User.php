@@ -49,4 +49,14 @@ class User extends Authenticatable
             'two_factor_confirmed_at' => 'datetime',
         ];
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'author_id');
+    }
+
+    public function views()
+    {
+        return $this->hasMany(View::class);
+    }
 }
