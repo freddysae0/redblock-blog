@@ -11,16 +11,15 @@ export function Header({ canRegister = true }: { canRegister?: boolean }) {
     <header className="sticky top-0 z-50 bg-background border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
-            <span className="text-accent-foreground font-bold text-sm">M</span>
-          </div>
-          <h1 className="text-xl font-bold tracking-tight text-foreground">ModernBlog</h1>
+          <img src="/logo.webp" alt="Logo" className="h-6 " />
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Redblock Online</h1>
+          <span className="text-xs text-muted-foreground">BLOG</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
           <a href="#" className={styles.links}>Home</a>
-          <a href="#" className={styles.links}>Stories</a>
-          <a href="#" className={styles.links}>Topics</a>
-          <a href="#" className={styles.links}>About</a>
+          <a href="#" className={styles.links}>Aim training</a>
+          <a href="#" className={styles.links}>Guides</a>
+          <a href="#" className={styles.links}>Updates</a>
           {auth?.user ? (
             <Link
               href={dashboard()}

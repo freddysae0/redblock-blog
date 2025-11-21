@@ -1,4 +1,5 @@
 import { Mail, Twitter, Linkedin } from 'lucide-react';
+import AppLogoIcon from '../app-logo-icon';
 
 export function Footer() {
   return (
@@ -7,27 +8,25 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-accent rounded-sm flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xs">M</span>
-              </div>
-              <span className="font-bold text-foreground">ModernBlog</span>
+            
+           <AppLogoIcon className="h-6" />
             </div>
             <p className="text-sm text-muted-foreground">
-              Thoughtful stories on design and technology.
+              The official blog of Redblock Online, a free and minimalist aim trainer to sharpen your precision and reaction time.
             </p>
           </div>
           <div className="space-y-3">
             <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">Explore</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Home</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Stories</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Topics</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Blog home</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Aim training</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Warmup routines</a></li>
             </ul>
           </div>
           <div className="space-y-3">
-            <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">Company</h4>
+            <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">About</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">About</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">What is Redblock Online?</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Privacy</a></li>
             </ul>
@@ -49,7 +48,7 @@ export function Footer() {
         </div>
         <div className="border-t border-border pt-8">
           <p className="text-xs text-muted-foreground text-center">
-            © 2025 ModernBlog. All rights reserved. Built with care.
+            © 2025 Redblock Online. All rights reserved. Built with ❤️.
           </p>
         </div>
       </div>
