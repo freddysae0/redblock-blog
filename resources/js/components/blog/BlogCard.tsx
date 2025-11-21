@@ -6,10 +6,10 @@ interface BlogPost {
   excerpt: string;
   category: string;
   image: string;
-  readTime: number;
   date: string;
   hasVideo?: boolean;
   slug?: string;
+  time_to_read?: number;
 }
 
 interface BlogCardProps {
@@ -17,10 +17,10 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  const postSlug = post.slug ?? `post-${post.id}`;
+  
 
   return (
-    <a href={`#/blog/${postSlug}`}>
+    <a href={`/blog/${post.slug}`}>
       <article className="group cursor-pointer h-full">
         <div className="relative overflow-hidden rounded-sm mb-4 bg-muted">
           <img
@@ -40,7 +40,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold text-accent uppercase tracking-wide">{post.category}</span>
             <span className="text-xs text-muted-foreground">•</span>
-            <span className="text-xs text-muted-foreground">{post.readTime} min read</span>
+            <span className="text-xs text-muted-foreground">{post.time_to_read} min read</span>
           </div>
           <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
             {post.title}

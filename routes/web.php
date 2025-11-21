@@ -6,10 +6,14 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Models\Article;
 
 Route::get('/', function () {
+    $articles = Article::with('categories')->latest()->take(6)->get();
+
     return Inertia::render('welcome', [
         'canRegister' => Features::enabled(Features::registration()),
+        'articles' => $articles,
     ]);
 })->name('home');
 

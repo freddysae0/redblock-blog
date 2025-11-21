@@ -3,7 +3,7 @@ import { type SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Hero } from '@/components/blog/Hero';
-import { BlogGrid } from '@/components/blog/BlogGrid';
+import { BlogGrid, type BlogGridArticle } from '@/components/blog/BlogGrid';
 import { Footer } from '@/components/blog/Footer';
 
 export default function Welcome({
@@ -11,7 +11,8 @@ export default function Welcome({
 }: {
     canRegister?: boolean;
 }) {
-    const { auth } = usePage<SharedData>().props;
+    const page = usePage<SharedData & { articles: BlogGridArticle[] }>();
+    const { auth, articles } = page.props;
 
     return (
         <>
@@ -27,7 +28,7 @@ export default function Welcome({
                     <BlogHeader canRegister={canRegister} />
                     <main className="flex-1">
                         <Hero />
-                        <BlogGrid />
+                        <BlogGrid articles={articles} />
                     </main>
                     <Footer />
                 </div>
