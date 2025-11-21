@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('media_url')->nullable();
+            $table->string('slug')->unique();
+            $table->string('time_to_read')->nullable();
             $table->unsignedInteger('total_views')->default(0);
             $table->unsignedInteger('unique_views')->default(0);
             $table->unsignedInteger('likes')->default(0);
