@@ -25,10 +25,12 @@ class CommentController extends Controller
             'body' => ['required', 'string', 'max:1000'],
         ]);
 
-        $article->comments()->create([
+        $comment = $article->comments()->create([
             'body' => $data['body'],
             'user_id' => $request->user()->id,
         ]);
+
+        \Illuminate\Support\Facades\Mail::to('blog@redblock.online')->send(new \App\Mail\NewCommentNotification($comment));
 
         return back();
     }
