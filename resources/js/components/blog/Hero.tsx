@@ -2,11 +2,11 @@ export function Hero() {
   const goToRedblockOnline = () => {
     window.location.href = 'https://redblock.online';
   };
-  
+
   return (
-    <section className="bg-background pt-16 pb-12 md:pt-24 md:pb-20">
-      <div className="max-w-4xl px-8">
-        <div className="space-y-6">
+    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[85dvh] flex items-center">
+      <div className=" px-8 flex justify-between flex-wrap gap-8">
+        <div className="space-y-6 shrink-0" >
           <div className="flex gap-2">
             <div className="w-1 h-8 bg-accent rounded-full" />
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -24,6 +24,12 @@ export function Hero() {
               Go to Redblock Online <p>🎮</p>
             </button>
           </div>
+        </div>
+
+
+        <div className="bg-white/20 backdrop-blur-sm border border-white/20 shadow-xl  rounded-sm h-71 flex items-center relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-transparent pointer-events-none" />
+          <video className="h-70 w-[98%] mx-auto rounded-lg" autoPlay loop muted src="demo.mp4"></video>
         </div>
       </div>
     </section>
