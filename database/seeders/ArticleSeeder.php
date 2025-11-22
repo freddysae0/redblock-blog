@@ -13,25 +13,19 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = collect([
-            ['title' => 'Design', 'description' => 'Articles about product and visual design.'],
-            ['title' => 'Technology', 'description' => 'Technical deep dives and engineering topics.'],
-            ['title' => 'Innovation', 'description' => 'Thoughts on innovation and strategy.'],
-        ])->map(function (array $attributes) {
-            return Category::firstOrCreate(
-                ['title' => $attributes['title']],
-                ['description' => $attributes['description']],
-            );
-        });
+        $categories = Category::all();
 
-        /** @var \Illuminate\Support\Collection<int, Category> $categories */
+        if ($categories->isEmpty()) {
+            $this->call(CategorySeeder::class);
+            $categories = Category::all();
+        }
 
         Article::factory()
             ->count(20)
             ->create()
             ->each(function (Article $article) use ($categories): void {
                 $categoryIds = $categories
-                    ->random(random_int(1, $categories->count()))
+                    ->random(random_int(1, min(3, $categories->count())))
                     ->pluck('id')
                     ->all();
 
