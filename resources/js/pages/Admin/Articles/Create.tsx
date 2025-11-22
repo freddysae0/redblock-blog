@@ -8,6 +8,7 @@ import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
 import { Wand2 } from 'lucide-react';
 import { MediaUpload } from '@/components/admin/MediaUpload';
+import { MarkdownEditor } from '@/components/admin/MarkdownEditor';
 
 interface Category {
     id: number;
@@ -104,12 +105,10 @@ export default function Create({ categories }: Props) {
 
                         <div>
                             <Label htmlFor="body">Content</Label>
-                            <textarea
-                                id="body"
+                            <MarkdownEditor
                                 value={data.body}
-                                onChange={(e) => setData('body', e.target.value)}
-                                className="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[200px]"
-                                required
+                                onChange={(value) => setData('body', value)}
+                                className="mt-1"
                             />
                             <InputError message={errors.body} className="mt-2" />
                         </div>

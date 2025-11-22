@@ -6,6 +6,7 @@ import { Media } from '@/components/ui/media';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Footer } from '@/components/blog/Footer';
 import { Clock } from 'lucide-react';
+import { MarkdownViewer } from '@/components/blog/MarkdownViewer';
 
 interface Props {
     article: Article;
@@ -55,10 +56,8 @@ export default function Show({ article, canRegister = true }: Props) {
                                 </div>
                             )}
 
-                            <div className="prose prose-lg dark:prose-invert max-w-none mb-16">
-                                <p className="whitespace-pre-wrap leading-relaxed">
-                                    {article.body}
-                                </p>
+                            <div className="mb-16">
+                                <MarkdownViewer content={article.body} />
                             </div>
 
                             <CommentSection articleId={article.id} comments={article.comments} />
