@@ -105,14 +105,14 @@ export default function Dashboard({ stats, chartData, popularArticles, recentCom
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                         <XAxis
                                             dataKey="date"
-                                            stroke="#888888"
+                                            stroke="currentColor"
                                             fontSize={12}
                                             tickLine={false}
                                             axisLine={false}
                                             tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                         />
                                         <YAxis
-                                            stroke="#888888"
+                                            stroke="currentColor"
                                             fontSize={12}
                                             tickLine={false}
                                             axisLine={false}
@@ -120,7 +120,7 @@ export default function Dashboard({ stats, chartData, popularArticles, recentCom
                                         />
                                         <Tooltip
                                             cursor={{ fill: 'transparent' }}
-                                            contentStyle={{ borderRadius: '8px' }}
+                                            contentStyle={{ borderRadius: '8px', backgroundColor: 'var(--sidebar)', border: 0 }}
                                         />
                                         <Bar dataKey="views" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
                                     </BarChart>
