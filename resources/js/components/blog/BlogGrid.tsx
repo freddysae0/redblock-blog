@@ -3,7 +3,8 @@ import { CategoryFilter } from './CategoryFilter';
 
 export interface BlogGridArticleCategory {
   id: number;
-  name: string;
+  title: string;
+  description: string;
 }
 
 export interface BlogGridArticle {
@@ -22,8 +23,7 @@ export interface BlogGridProps {
 }
 
 export function BlogGrid({ articles }: BlogGridProps) {
-  const categories = ['All', 'Design', 'Technology', 'Innovation'];
-
+  const categories = articles.map((article) => article.categories).flat().map((category) => category.title);
   return (
     <section className="bg-background py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-6">
@@ -39,9 +39,8 @@ export function BlogGrid({ articles }: BlogGridProps) {
                   excerpt: article.body,
                   slug: article.slug,
                   time_to_read: article.time_to_read,
-                  category: article.categories[0]?.name ?? 'Uncategorized',
+                  category: article.categories[0]?.title ?? 'Uncategorized',
                   image: article.media_url ?? '/placeholder.svg',
-                  readTime: 5,
                   date: new Date(article.created_at).toLocaleDateString(),
                 }}
               />
