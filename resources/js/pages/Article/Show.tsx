@@ -1,35 +1,11 @@
 import { Head } from '@inertiajs/react';
+import { Calendar } from 'lucide-react';
+import { CommentSection } from '@/components/blog/CommentSection';
+import { type Article } from '@/types';
+import { Media } from '@/components/ui/media';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Footer } from '@/components/blog/Footer';
-
-import { Calendar, Clock } from 'lucide-react';
-import { CommentSection } from '@/components/blog/CommentSection';
-
-interface Comment {
-    id: number;
-    body: string;
-    created_at: string;
-    user: {
-        name: string;
-    };
-}
-
-interface Category {
-    id: number;
-    title: string;
-}
-
-interface Article {
-    id: number;
-    title: string;
-    slug: string;
-    body: string;
-    media_url: string | null;
-    created_at: string;
-    categories: Category[];
-    comments: Comment[];
-    time_to_read?: number; // Assuming this might be available or calculated
-}
+import { Clock } from 'lucide-react';
 
 interface Props {
     article: Article;
@@ -46,7 +22,6 @@ export default function Show({ article, canRegister = true }: Props) {
                     <BlogHeader canRegister={canRegister} />
                     <main className="flex-1">
                         <article className="max-w-4xl mx-auto px-6 py-12 md:py-20">
-                            {/* Header */}
                             <div className="space-y-6 mb-12 text-center">
                                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                                     {article.categories.map((category) => (
@@ -63,7 +38,6 @@ export default function Show({ article, canRegister = true }: Props) {
                                         <Calendar className="w-4 h-4" />
                                         <span>{new Date(article.created_at).toLocaleDateString()}</span>
                                     </div>
-                                    {/* Placeholder for time to read if not available */}
                                     <div className="flex items-center gap-2">
                                         <Clock className="w-4 h-4" />
                                         <span>5 min read</span>
@@ -71,25 +45,22 @@ export default function Show({ article, canRegister = true }: Props) {
                                 </div>
                             </div>
 
-                            {/* Featured Image */}
                             {article.media_url && (
                                 <div className="mb-12 rounded-xl overflow-hidden shadow-lg">
-                                    <img
+                                    <Media
                                         src={article.media_url}
                                         alt={article.title}
-                                        className="w-full h-[400px] md:h-[500px] object-cover"
+                                        className="h-[400px] md:h-[500px]"
                                     />
                                 </div>
                             )}
 
-                            {/* Content */}
                             <div className="prose prose-lg dark:prose-invert max-w-none mb-16">
                                 <p className="whitespace-pre-wrap leading-relaxed">
                                     {article.body}
                                 </p>
                             </div>
 
-                            {/* Comments Section */}
                             <CommentSection articleId={article.id} comments={article.comments} />
                         </article>
                     </main>

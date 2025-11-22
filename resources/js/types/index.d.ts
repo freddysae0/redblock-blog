@@ -41,3 +41,31 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+
+export interface Category {
+    id: number;
+    title: string;
+    slug?: string;
+}
+
+export interface Comment {
+    id: number;
+    body: string;
+    created_at: string;
+    user: {
+        name: string;
+    };
+}
+
+export interface Article {
+    id: number;
+    title: string;
+    slug: string;
+    body: string;
+    media_url: string | null;
+    created_at: string;
+    categories: Category[];
+    comments: Comment[];
+    time_to_read?: number; // Assuming this might be available or calculated
+}

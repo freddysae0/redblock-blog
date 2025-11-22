@@ -1,4 +1,4 @@
-import { Play } from 'lucide-react';
+import { Media } from '@/components/ui/media';
 
 interface BlogPost {
   id: number;
@@ -17,24 +17,18 @@ interface BlogCardProps {
 }
 
 export function BlogCard({ post }: BlogCardProps) {
-  
+
 
   return (
     <a href={`/blog/${post.slug}`}>
       <article className="group cursor-pointer h-full">
         <div className="relative overflow-hidden rounded-sm mb-4 bg-muted">
-          <img
+          <Media
             src={post.image || '/placeholder.svg'}
             alt={post.title}
-            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+            className="h-64"
+            isPreview={post.hasVideo}
           />
-          {post.hasVideo && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-              <div className="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
-                <Play className="w-5 h-5 text-accent-foreground fill-accent-foreground" />
-              </div>
-            </div>
-          )}
         </div>
         <div className="space-y-3">
           <div className="flex items-center gap-2">

@@ -1,3 +1,4 @@
+import { isVideo } from '../ui/media';
 import { BlogCard } from './BlogCard';
 import { CategoryFilter } from './CategoryFilter';
 
@@ -42,6 +43,7 @@ export function BlogGrid({ articles }: BlogGridProps) {
                   category: article.categories[0]?.title ?? 'Uncategorized',
                   image: article.media_url ?? '/placeholder.svg',
                   date: new Date(article.created_at).toLocaleDateString(),
+                  hasVideo: isVideo(article.media_url ?? ''),
                 }}
               />
             ))}

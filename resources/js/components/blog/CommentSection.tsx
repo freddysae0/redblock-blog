@@ -3,16 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
-import { type SharedData } from '@/types';
-
-interface Comment {
-    id: number;
-    body: string;
-    created_at: string;
-    user: {
-        name: string;
-    };
-}
+import { type SharedData, type Comment } from '@/types';
 
 interface Props {
     articleId: number;
