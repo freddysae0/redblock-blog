@@ -52,9 +52,8 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
-        // This might still be used for public view or admin preview
-        return Inertia::render('Admin/Articles/Show', [
-            'article' => $article->load(['categories', 'comments']),
+        return Inertia::render('Article/Show', [
+            'article' => $article->load(['categories', 'comments.user']),
         ]);
     }
 
