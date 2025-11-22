@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -52,8 +53,24 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        $article->increment('total_views');
+
+        if (auth()->check()) {
+            $viewExists = $article->views()
+                ->where('user_id', auth()->id())
+                ->exists();
+
+            if (!$viewExists) {
+                $article->views()->create([
+                    'user_id' => auth()->id(),
+                ]);
+                $article->increment('unique_views');
+            }
+        }
+
         return Inertia::render('Article/Show', [
-            'article' => $article->load(['categories', 'comments.user']),
+            'article' => $article->load('categories', 'comments.user'),
+            'canRegister' => Route::has('register'),
         ]);
     }
 
