@@ -11,6 +11,7 @@ class Article extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'body',
         'media_url',
         'total_views',

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
@@ -11,13 +13,23 @@ class ArticleController extends Controller
     {
         $articles = Article::with('categories')->latest()->paginate(10);
 
-        return response()->json($articles);
+        return Inertia::render('Admin/Articles/Index', [
+            'articles' => $articles,
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Articles/Create', [
+            'categories' => Category::all(),
+        ]);
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255', 'unique:articles,slug'],
             'body' => ['required', 'string'],
             'media_url' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['array'],
@@ -26,6 +38,7 @@ class ArticleController extends Controller
 
         $article = Article::create([
             'title' => $data['title'],
+            'slug' => $data['slug'],
             'body' => $data['body'],
             'media_url' => $data['media_url'] ?? null,
         ]);
@@ -34,18 +47,30 @@ class ArticleController extends Controller
             $article->categories()->sync($data['category_ids']);
         }
 
-        return response()->json($article->load('categories'), 201);
+        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
     }
 
     public function show(Article $article)
     {
-        return response()->json($article->load(['categories', 'comments']));
+        // This might still be used for public view or admin preview
+        return Inertia::render('Admin/Articles/Show', [
+            'article' => $article->load(['categories', 'comments']),
+        ]);
+    }
+
+    public function edit(Article $article)
+    {
+        return Inertia::render('Admin/Articles/Edit', [
+            'article' => $article->load('categories'),
+            'categories' => Category::all(),
+        ]);
     }
 
     public function update(Request $request, Article $article)
     {
         $data = $request->validate([
             'title' => ['sometimes', 'string', 'max:255'],
+            'slug' => ['sometimes', 'string', 'max:255', 'unique:articles,slug,' . $article->id],
             'body' => ['sometimes', 'string'],
             'media_url' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['sometimes', 'array'],
@@ -58,13 +83,13 @@ class ArticleController extends Controller
             $article->categories()->sync($data['category_ids'] ?? []);
         }
 
-        return response()->json($article->load('categories'));
+        return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return response()->noContent();
+        return redirect()->route('articles.index')->with('success', 'Article deleted successfully.');
     }
 }
