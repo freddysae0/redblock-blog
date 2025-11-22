@@ -1,8 +1,8 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Footer } from '@/components/blog/Footer';
-import { type SharedData } from '@/types';
-import { Calendar, Clock, Tag } from 'lucide-react';
+
+import { Calendar, Clock } from 'lucide-react';
 import { CommentSection } from '@/components/blog/CommentSection';
 
 interface Comment {
@@ -37,7 +37,6 @@ interface Props {
 }
 
 export default function Show({ article, canRegister = true }: Props) {
-    const { auth } = usePage<SharedData>().props;
 
     return (
         <>

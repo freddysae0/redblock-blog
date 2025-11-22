@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Edit, Trash2, Plus } from 'lucide-react';
@@ -42,7 +42,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index({ articles }: Props) {
-    const { flash } = usePage().props;
+
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

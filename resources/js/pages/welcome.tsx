@@ -12,7 +12,7 @@ export default function Welcome({
     canRegister?: boolean;
 }) {
     const page = usePage<SharedData & { articles: BlogGridArticle[] }>();
-    const { auth, articles } = page.props;
+    const { articles } = page.props;
 
     return (
         <>
