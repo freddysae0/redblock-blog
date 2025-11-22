@@ -28,7 +28,7 @@ class ArticleFactory extends Factory
             'title' => $this->faker->sentence(6),
             'slug' => $this->faker->slug(),
             'body' => $this->faker->paragraphs(3, true),
-            'media_url' => $this->faker->optional()->imageUrl(1200, 800, 'business', true),
+            'media_url' => 'https://picsum.photos/500/300',
             'time_to_read' => $this->faker->numberBetween(1, 10),
             'total_views' => 0,
             'unique_views' => 0,
