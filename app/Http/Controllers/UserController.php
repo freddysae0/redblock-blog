@@ -26,4 +26,17 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+
+    public function toggleStatus(User $user)
+    {
+        if (auth()->id() === $user->id) {
+            return back()->with('error', 'You cannot disable yourself.');
+        }
+
+        $user->update([
+            'is_disabled' => !$user->is_disabled,
+        ]);
+
+        return back();
+    }
 }

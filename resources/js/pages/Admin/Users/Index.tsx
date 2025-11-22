@@ -1,21 +1,25 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Trash2, Ban, CheckCircle } from 'lucide-react';
 import { type BreadcrumbItem, type User } from '@/types';
-
-interface PaginationLink {
-    url: string | null;
-    label: string;
-    active: boolean;
-}
-
-interface Props {
-    users: {
-        data: User[];
-        links: PaginationLink[];
-    };
-}
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from '@/components/ui/table';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,89 +32,113 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+interface ExtendedUser extends User {
+    is_disabled: boolean;
+}
+
+interface Props {
+    users: {
+        data: ExtendedUser[];
+        links: any[];
+        current_page: number;
+        last_page: number;
+    };
+}
+
 export default function Index({ users }: Props) {
-    const { auth } = usePage().props;
+    const handleDelete = (id: number) => {
+        if (confirm('Are you sure you want to delete this user?')) {
+            router.delete(`/users/${id}`);
+        }
+    };
+
+    const handleToggleStatus = (id: number) => {
+        router.patch(`/users/${id}/toggle-status`);
+    };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users" />
-            <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold">Users</h1>
+            <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-2xl font-bold tracking-tight">Users</h1>
                 </div>
 
-                <div className="bg-white dark:bg-sidebar rounded-xl border border-sidebar-border shadow-sm overflow-hidden">
-                    <table className="w-full text-left text-sm">
-                        <thead className="bg-sidebar-accent/50 text-sidebar-foreground/70 font-medium border-b border-sidebar-border">
-                            <tr>
-                                <th className="px-6 py-4">Name</th>
-                                <th className="px-6 py-4">Email</th>
-                                <th className="px-6 py-4">Joined At</th>
-                                <th className="px-6 py-4 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-sidebar-border">
+                <div className="rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Email</TableHead>
+                                <TableHead>Status</TableHead>
+                                <TableHead>Joined</TableHead>
+                                <TableHead className="text-right">Actions</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
                             {users.data.map((user) => (
-                                <tr key={user.id} className="hover:bg-sidebar-accent/20 transition-colors">
-                                    <td className="px-6 py-4 font-medium">
-                                        <div className="flex items-center gap-3">
-                                            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-                                                {user.name.charAt(0)}
-                                            </div>
-                                            {user.name}
-                                            {auth.user.id === user.id && (
-                                                <span className="ml-2 text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-                                                    You
-                                                </span>
-                                            )}
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4 text-muted-foreground">{user.email}</td>
-                                    <td className="px-6 py-4 text-muted-foreground">
-                                        {new Date(user.created_at).toLocaleDateString()}
-                                    </td>
-                                    <td className="px-6 py-4 text-right">
-                                        {auth.user.id !== user.id && (
-                                            <Link
-                                                href={`/users/${user.id}`}
-                                                method="delete"
-                                                as="button"
-                                                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 text-destructive hover:text-destructive"
+                                <TableRow key={user.id}>
+                                    <TableCell className="font-medium">{user.name}</TableCell>
+                                    <TableCell>{user.email}</TableCell>
+                                    <TableCell>
+                                        <Badge variant={user.is_disabled ? 'destructive' : 'default'}>
+                                            {user.is_disabled ? 'Disabled' : 'Active'}
+                                        </Badge>
+                                    </TableCell>
+                                    <TableCell>{new Date(user.created_at).toLocaleDateString()}</TableCell>
+                                    <TableCell className="text-right">
+                                        <div className="flex justify-end gap-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => handleToggleStatus(user.id)}
+                                                title={user.is_disabled ? 'Enable User' : 'Disable User'}
+                                            >
+                                                {user.is_disabled ? (
+                                                    <CheckCircle className="h-4 w-4 text-green-500" />
+                                                ) : (
+                                                    <Ban className="h-4 w-4 text-orange-500" />
+                                                )}
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => handleDelete(user.id)}
+                                                className="text-destructive hover:text-destructive"
                                             >
                                                 <Trash2 className="h-4 w-4" />
-                                            </Link>
-                                        )}
-                                    </td>
-                                </tr>
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
                             ))}
-                            {users.data.length === 0 && (
-                                <tr>
-                                    <td colSpan={4} className="px-6 py-8 text-center text-muted-foreground">
-                                        No users found.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
 
-                {/* Simple Pagination */}
-                <div className="mt-6 flex justify-center gap-1">
-                    {users.links.map((link, i) => (
-                        <Button
-                            key={i}
-                            variant={link.active ? 'default' : 'outline'}
-                            size="sm"
-                            asChild
-                            disabled={!link.url}
-                            className={!link.url ? 'opacity-50 pointer-events-none' : ''}
-                        >
-                            <Link href={link.url || '#'}>
-                                <span dangerouslySetInnerHTML={{ __html: link.label }} />
-                            </Link>
-                        </Button>
-                    ))}
-                </div>
+                {/* Pagination */}
+                {users.last_page > 1 && (
+                    <Pagination>
+                        <PaginationContent>
+                            {users.links.map((link, i) => (
+                                <PaginationItem key={i}>
+                                    {link.url ? (
+                                        <PaginationLink
+                                            href={link.url}
+                                            isActive={link.active}
+                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                        />
+                                    ) : (
+                                        <span
+                                            className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background text-sm font-medium text-muted-foreground opacity-50"
+                                            dangerouslySetInnerHTML={{ __html: link.label }}
+                                        />
+                                    )}
+                                </PaginationItem>
+                            ))}
+                        </PaginationContent>
+                    </Pagination>
+                )}
             </div>
         </AppLayout>
     );

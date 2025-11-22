@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('articles', ArticleController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class)->only(['index', 'destroy']);
+    Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
     Route::get('comments', [CommentController::class, 'index'])->name('comments.index');
 
     Route::post('articles/{article}/comments', [CommentController::class, 'store'])->name('articles.comments.store');
