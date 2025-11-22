@@ -7,6 +7,7 @@ import { type BreadcrumbItem } from '@/types';
 import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
 import { Wand2 } from 'lucide-react';
+import { MediaUpload } from '@/components/admin/MediaUpload';
 
 interface Category {
     id: number;
@@ -18,7 +19,7 @@ interface Article {
     title: string;
     slug: string;
     body: string;
-    media_url: string | null;
+    media_file: string | null;
     categories: Category[];
 }
 
@@ -47,7 +48,7 @@ export default function Edit({ article, categories }: Props) {
         title: article.title,
         slug: article.slug,
         body: article.body,
-        media_url: article.media_url || '',
+        media_file: article.media_file || '',
         category_ids: article.categories.map(c => c.id),
     });
 
@@ -123,17 +124,12 @@ export default function Edit({ article, categories }: Props) {
                             <InputError message={errors.body} className="mt-2" />
                         </div>
 
-                        <div>
-                            <Label htmlFor="media_url">Media URL (Image)</Label>
-                            <Input
-                                id="media_url"
-                                value={data.media_url}
-                                onChange={(e) => setData('media_url', e.target.value)}
-                                className="mt-1 block w-full"
-                                placeholder="https://example.com/image.jpg"
-                            />
-                            <InputError message={errors.media_url} className="mt-2" />
-                        </div>
+                        <MediaUpload
+                            value={data.media_file}
+                            onChange={(url) => setData('media_file', url)}
+                            label="Article Media"
+                        />
+                        <InputError message={errors.media_file} className="mt-2" />
 
                         <div>
                             <Label className="mb-2 block">Categories</Label>
@@ -153,7 +149,7 @@ export default function Edit({ article, categories }: Props) {
                                 ))}
                             </div>
                             <InputError message={errors.category_ids} className="mt-2" />
-                        </div>
+                        </div >
 
                         <div className="flex justify-end gap-4">
                             <Button variant="outline" asChild>
@@ -163,9 +159,9 @@ export default function Edit({ article, categories }: Props) {
                                 Update Article
                             </Button>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </AppLayout>
+                    </form >
+                </div >
+            </div >
+        </AppLayout >
     );
 }

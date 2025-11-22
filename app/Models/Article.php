@@ -13,11 +13,16 @@ class Article extends Model
         'title',
         'slug',
         'body',
-        'media_url',
-        'total_views',
-        'unique_views',
-        'likes',
+        'media_file',
+        'user_id',
     ];
+
+    protected $appends = ['media_url'];
+
+    public function getMediaUrlAttribute(): ?string
+    {
+        return $this->media_file ? asset('storage/media/' . $this->media_file) : null;
+    }
 
     public function categories()
     {

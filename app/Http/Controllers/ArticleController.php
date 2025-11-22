@@ -32,7 +32,7 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:articles,slug'],
             'body' => ['required', 'string'],
-            'media_url' => ['nullable', 'string', 'max:255'],
+            'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['array'],
             'category_ids.*' => ['integer', 'exists:categories,id'],
         ]);
@@ -41,7 +41,7 @@ class ArticleController extends Controller
             'title' => $data['title'],
             'slug' => $data['slug'],
             'body' => $data['body'],
-            'media_url' => $data['media_url'] ?? null,
+            'media_file' => $data['media_file'] ?? null,
         ]);
 
         if (!empty($data['category_ids'])) {
@@ -88,7 +88,7 @@ class ArticleController extends Controller
             'title' => ['sometimes', 'string', 'max:255'],
             'slug' => ['sometimes', 'string', 'max:255', 'unique:articles,slug,' . $article->id],
             'body' => ['sometimes', 'string'],
-            'media_url' => ['nullable', 'string', 'max:255'],
+            'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['sometimes', 'array'],
             'category_ids.*' => ['integer', 'exists:categories,id'],
         ]);
