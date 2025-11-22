@@ -4,12 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        return response()->json(Category::all());
+        return Inertia::render('Admin/Categories/Index', [
+            'categories' => Category::all(),
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Categories/Create');
     }
 
     public function store(Request $request)
@@ -19,14 +27,22 @@ class CategoryController extends Controller
             'description' => ['nullable', 'string'],
         ]);
 
-        $category = Category::create($data);
+        Category::create($data);
 
-        return response()->json($category, 201);
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     public function show(Category $category)
     {
+        // Likely not needed for admin, or maybe for preview
         return response()->json($category->load('articles'));
+    }
+
+    public function edit(Category $category)
+    {
+        return Inertia::render('Admin/Categories/Edit', [
+            'category' => $category,
+        ]);
     }
 
     public function update(Request $request, Category $category)
@@ -38,13 +54,13 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return response()->json($category);
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return response()->noContent();
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
     }
 }
