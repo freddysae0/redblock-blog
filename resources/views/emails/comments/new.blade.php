@@ -130,7 +130,7 @@
     <div class="container">
         <div class="header">
             <a href="{{ config('app.url') }}" class="logo">
-                RedBlock Online
+                Redblock Online
             </a>
         </div>
 
