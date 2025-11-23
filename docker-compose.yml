@@ -99,6 +99,7 @@ services:
             npm install
         fi
         npm run build
+        rm -f public/hot
         
         sleep 5
         echo "Running migrations..."
