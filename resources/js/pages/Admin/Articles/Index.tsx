@@ -7,6 +7,8 @@ import { type BreadcrumbItem } from '@/types';
 import { AdminTable } from '@/components/admin/AdminTable';
 import { AdminPagination } from '@/components/admin/AdminPagination';
 
+import { SearchFilter } from '@/components/admin/SearchFilter';
+
 interface Category {
     id: number;
     title: string;
@@ -30,6 +32,9 @@ interface Props {
         data: Article[];
         links: PaginationLink[];
     };
+    filters?: {
+        search?: string;
+    };
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -43,19 +48,25 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ articles }: Props) {
+export default function Index({ articles, filters }: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Articles" />
             <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <h1 className="text-2xl font-bold">Articles</h1>
-                    <Button asChild>
-                        <Link href="/articles/create">
-                            <Plus className="mr-2 h-4 w-4" />
-                            Create Article
-                        </Link>
-                    </Button>
+                    <div className="flex items-center gap-4 w-full sm:w-auto">
+                        <SearchFilter
+                            placeholder="Search articles..."
+                            initialValue={filters?.search}
+                        />
+                        <Button asChild className="shrink-0">
+                            <Link href="/articles/create">
+                                <Plus className="mr-2 h-4 w-4" />
+                                Create Article
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
 
                 <AdminTable

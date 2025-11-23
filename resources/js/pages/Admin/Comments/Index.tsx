@@ -6,6 +6,8 @@ import { type BreadcrumbItem, type User } from '@/types';
 import { AdminTable } from '@/components/admin/AdminTable';
 import { AdminPagination } from '@/components/admin/AdminPagination';
 
+import { SearchFilter } from '@/components/admin/SearchFilter';
+
 interface Article {
     id: number;
     title: string;
@@ -31,6 +33,9 @@ interface Props {
         data: Comment[];
         links: PaginationLink[];
     };
+    filters?: {
+        search?: string;
+    };
 }
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -44,13 +49,19 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ comments }: Props) {
+export default function Index({ comments, filters }: Props) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Comments" />
             <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <h1 className="text-2xl font-bold">Comments</h1>
+                    <div className="w-full sm:w-auto">
+                        <SearchFilter
+                            placeholder="Search comments..."
+                            initialValue={filters?.search}
+                        />
+                    </div>
                 </div>
 
                 <AdminTable

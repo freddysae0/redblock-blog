@@ -10,12 +10,22 @@ use Inertia\Inertia;
 
 class CommentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $comments = Comment::with(['user', 'article'])->latest()->paginate(20);
+        $comments = Comment::with(['user', 'article'])
+            ->when($request->search, function ($query, $search) {
+                $query->where('body', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%");
+                    });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Comments/Index', [
             'comments' => $comments,
+            'filters' => $request->only(['search']),
         ]);
     }
 

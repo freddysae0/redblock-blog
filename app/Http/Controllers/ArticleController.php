@@ -10,12 +10,22 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::with('categories')->latest()->paginate(10);
+        $articles = Article::with('categories')
+            ->when($request->search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('body', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('Admin/Articles/Index', [
             'articles' => $articles,
+            'filters' => $request->only(['search']),
         ]);
     }
 

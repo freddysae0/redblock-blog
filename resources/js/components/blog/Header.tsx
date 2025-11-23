@@ -16,7 +16,7 @@ export function Header({ canRegister = true }: { canRegister?: boolean }) {
           <span className="text-xs text-muted-foreground">BLOG</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
-          <a href="#" className={styles.links}>Home</a>
+          <a href="/" className={styles.links}>Home</a>
           <a href="#" className={styles.links}>Aim training</a>
           <a href="#" className={styles.links}>Guides</a>
           <a href="#" className={styles.links}>Updates</a>

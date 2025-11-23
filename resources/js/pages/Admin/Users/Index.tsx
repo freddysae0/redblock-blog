@@ -7,6 +7,8 @@ import { type BreadcrumbItem, type User } from '@/types';
 import { AdminTable } from '@/components/admin/AdminTable';
 import { AdminPagination } from '@/components/admin/AdminPagination';
 
+import { SearchFilter } from '@/components/admin/SearchFilter';
+
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Dashboard',
@@ -33,9 +35,12 @@ interface Props {
         data: ExtendedUser[];
         links: PaginationLink[];
     };
+    filters?: {
+        search?: string;
+    };
 }
 
-export default function Index({ users }: Props) {
+export default function Index({ users, filters }: Props) {
     const handleDelete = (id: number) => {
         if (confirm('Are you sure you want to delete this user?')) {
             router.delete(`/users/${id}`);
@@ -50,8 +55,14 @@ export default function Index({ users }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users" />
             <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                     <h1 className="text-2xl font-bold">Users</h1>
+                    <div className="w-full sm:w-auto">
+                        <SearchFilter
+                            placeholder="Search users..."
+                            initialValue={filters?.search}
+                        />
+                    </div>
                 </div>
 
                 <AdminTable
