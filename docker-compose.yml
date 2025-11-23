@@ -137,6 +137,7 @@ services:
         echo "Clearing caches..."
         php artisan cache:clear || true
         php artisan config:clear || true
+        php artisan view:clear || true
         echo "Starting PHP-FPM..."
         exec php-fpm -F
       '
