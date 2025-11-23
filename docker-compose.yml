@@ -83,8 +83,10 @@ services:
         
         echo "Cleaning previous installation..."
         rm -rf vendor/ bootstrap/cache/*.php || true
+        mkdir -p vendor
         
         echo "Installing dependencies..."
+        export COMPOSER_PROCESS_TIMEOUT=2000
         if ! COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist; then
           echo "ERROR: Composer install failed!"
           exit 1
