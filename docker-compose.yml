@@ -48,16 +48,22 @@ services:
     command: >
       sh -c '
         set -e
+        echo "Installing dependencies..."
+        composer install --no-dev --optimize-autoloader --no-interaction
         sleep 5
+        echo "Running migrations..."
         for i in $(seq 1 30); do
           php artisan migrate --force && break || echo "Retrying...";
           sleep 3;
         done
+        echo "Setting up directories..."
         mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
         chown -R www-data:www-data storage bootstrap/cache
         chmod -R ug+rw storage bootstrap/cache
+        echo "Clearing caches..."
         php artisan cache:clear || true
         php artisan config:clear || true
+        echo "Starting PHP-FPM..."
         exec php-fpm -F
       '
     depends_on:
