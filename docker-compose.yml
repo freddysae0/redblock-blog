@@ -98,8 +98,18 @@ services:
         if [ ! -d "node_modules" ]; then
             npm install
         fi
+        
+        echo "Cleaning build directory..."
+        rm -rf public/build
+        
+        echo "Building assets..."
         npm run build
         rm -f public/hot
+        
+        echo "Build complete. Manifest content:"
+        cat public/build/manifest.json || echo "Manifest not found!"
+        echo "Assets directory:"
+        ls -la public/build/assets || echo "Assets directory not found!"
         
         sleep 5
         echo "Running migrations..."
