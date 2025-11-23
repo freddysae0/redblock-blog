@@ -12,6 +12,7 @@ export interface BlogGridArticle {
   id: number;
   slug: string;
   title: string;
+  short_description: string | null;
   body: string;
   media_url: string | null;
   created_at: string;
@@ -37,7 +38,7 @@ export function BlogGrid({ articles }: BlogGridProps) {
                 post={{
                   id: article.id,
                   title: article.title,
-                  excerpt: article.body,
+                  excerpt: article.short_description || article.body,
                   slug: article.slug,
                   time_to_read: article.time_to_read,
                   category: article.categories[0]?.title ?? 'Uncategorized',

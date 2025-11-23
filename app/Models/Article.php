@@ -13,6 +13,7 @@ class Article extends Model
         'title',
         'slug',
         'body',
+        'short_description',
         'media_file',
         'user_id',
         'published_at',

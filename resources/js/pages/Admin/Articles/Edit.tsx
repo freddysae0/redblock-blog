@@ -3,6 +3,7 @@ import { Head, useForm, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { type BreadcrumbItem } from '@/types';
 import { FormEventHandler, useRef } from 'react';
 import InputError from '@/components/input-error';
@@ -19,6 +20,7 @@ interface Article {
     id: number;
     title: string;
     slug: string;
+    short_description: string | null;
     body: string;
     media_file: string | null;
     categories: Category[];
@@ -50,6 +52,7 @@ export default function Edit({ article, categories }: Props) {
     const { data, setData, put, processing, errors, transform } = useForm({
         title: article.title,
         slug: article.slug,
+        short_description: article.short_description || '',
         body: article.body,
         media_file: article.media_file || '',
         category_ids: article.categories.map(c => c.id),
@@ -127,6 +130,18 @@ export default function Edit({ article, categories }: Props) {
                                 </Button>
                             </div>
                             <InputError message={errors.slug} className="mt-2" />
+                        </div>
+
+                        <div>
+                            <Label htmlFor="short_description">Short Description</Label>
+                            <Textarea
+                                id="short_description"
+                                value={data.short_description}
+                                onChange={(e) => setData('short_description', e.target.value)}
+                                className="mt-1 block w-full"
+                                rows={3}
+                            />
+                            <InputError message={errors.short_description} className="mt-2" />
                         </div>
 
                         <div>

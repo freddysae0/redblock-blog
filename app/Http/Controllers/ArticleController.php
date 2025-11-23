@@ -47,6 +47,7 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:articles,slug'],
+            'short_description' => ['nullable', 'string', 'max:500'],
             'body' => ['required', 'string'],
             'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['array'],
@@ -57,6 +58,7 @@ class ArticleController extends Controller
         $article = Article::create([
             'title' => $data['title'],
             'slug' => $data['slug'],
+            'short_description' => $data['short_description'] ?? null,
             'body' => $data['body'],
             'media_file' => $data['media_file'] ?? null,
             'published_at' => $data['action'] === 'publish' ? now() : null,
@@ -113,6 +115,7 @@ class ArticleController extends Controller
         $data = $request->validate([
             'title' => ['sometimes', 'string', 'max:255'],
             'slug' => ['sometimes', 'string', 'max:255', 'unique:articles,slug,' . $article->id],
+            'short_description' => ['nullable', 'string', 'max:500'],
             'body' => ['sometimes', 'string'],
             'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['sometimes', 'array'],

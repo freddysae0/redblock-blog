@@ -3,6 +3,7 @@ import { Head, useForm, Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { type BreadcrumbItem } from '@/types';
 import { FormEventHandler } from 'react';
 import InputError from '@/components/input-error';
@@ -43,6 +44,7 @@ export default function Create({ categories }: Props) {
     const { data, setData, post, processing, errors, transform } = useForm({
         title: '',
         slug: '',
+        short_description: '',
         body: '',
         media_file: '',
         category_ids: [] as number[],
@@ -112,6 +114,18 @@ export default function Create({ categories }: Props) {
                                 </Button>
                             </div>
                             <InputError message={errors.slug} className="mt-2" />
+                        </div>
+
+                        <div>
+                            <Label htmlFor="short_description">Short Description</Label>
+                            <Textarea
+                                id="short_description"
+                                value={data.short_description}
+                                onChange={(e) => setData('short_description', e.target.value)}
+                                className="mt-1 block w-full"
+                                rows={3}
+                            />
+                            <InputError message={errors.short_description} className="mt-2" />
                         </div>
 
                         <div>
