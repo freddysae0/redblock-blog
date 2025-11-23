@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use App\Http\Controllers\ArticleController;
@@ -10,8 +11,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use App\Models\Article;
+use App\Models\Category;
 
 Route::get('/', function () {
+    // Show popular articles (most recent 6)
     $articles = Article::published()->with('categories')->latest()->take(6)->get();
 
     return Inertia::render('welcome', [
@@ -19,6 +22,49 @@ Route::get('/', function () {
         'articles' => $articles,
     ]);
 })->name('home');
+
+Route::get('/blog', function (Request $request) {
+    $query = Article::published()->with('categories');
+
+    // Filter by category
+    if ($request->category) {
+        $query->whereHas('categories', function ($q) use ($request) {
+            $q->where('title', $request->category);
+        });
+    }
+
+    // Filter by search
+    if ($request->search) {
+        $query->where(function ($q) use ($request) {
+            $q->where('title', 'like', "%{$request->search}%")
+                ->orWhere('body', 'like', "%{$request->search}%");
+        });
+    }
+
+    // Sort articles
+    $sort = $request->sort ?? 'latest';
+    switch ($sort) {
+        case 'popular':
+            $query->orderBy('total_views', 'desc');
+            break;
+        case 'liked':
+            $query->orderBy('likes', 'desc');
+            break;
+        case 'latest':
+        default:
+            $query->latest();
+            break;
+    }
+
+    $articles = $query->get();
+    $categories = Category::all();
+
+    return Inertia::render('Blog', [
+        'articles' => $articles,
+        'categories' => $categories,
+        'filters' => $request->only(['category', 'search', 'sort']),
+    ]);
+})->name('blog');
 
 Route::get('/what-is-redblock', function () {
     return Inertia::render('WhatIsRedblock');

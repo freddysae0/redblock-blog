@@ -236,7 +236,7 @@ export default function WhatIsRedblock() {
                             <div className="space-y-4">
                                 <h2 className="text-3xl md:text-5xl font-bold">What's Next?</h2>
                                 <p className="text-xl text-muted-foreground leading-relaxed">
-                                    Join the <span className="text-primary font-semibold">Rompecircuitos Program</span>
+                                    Join the <span className="text-primary font-semibold">Circuitbreakersrs Program</span>
                                 </p>
                             </div>
 

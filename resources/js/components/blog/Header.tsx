@@ -1,54 +1,71 @@
 import { Link, usePage } from "@inertiajs/react";
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
-export function Header({ canRegister = true }: { canRegister?: boolean }) {
+import AppLogoIcon from '@/components/app-logo-icon';
 
-  const styles = {
-    links: "text-sm text-foreground hover:text-accent transition-colors",
-  };
+interface HeaderProps {
+  canRegister?: boolean;
+}
+
+export function Header({ canRegister = true }: HeaderProps) {
   const { auth } = usePage<SharedData>().props;
+
+  // Get user initials
+  const getInitials = (name: string) => {
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-background border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img src="/logo.webp" alt="Logo" className="h-6 " />
-          <h1 className="text-xl font-bold tracking-tight text-foreground">Redblock Online</h1>
-          <span className="text-xs text-muted-foreground">BLOG</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-8">
+          <a href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <AppLogoIcon className="h-6" />
+          </a>
+          <nav className="hidden md:flex items-center gap-6">
+            <a href="/" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              Home
+            </a>
+            <a href="/blog" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              Blog
+            </a>
+            <a href="/what-is-redblock" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              What is Redblock Online?
+            </a>
+            <a href="/contact" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              Contact
+            </a>
+          </nav>
         </div>
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="/" className={styles.links}>Home</a>
-          <a href="#" className={styles.links}>Aim training</a>
-          <a href="#" className={styles.links}>Guides</a>
-          <a href="#" className={styles.links}>Updates</a>
+        <div className="flex items-center gap-4">
           {auth?.user ? (
             <Link
               href={dashboard()}
-              className={styles.links}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              title={auth.user.name}
             >
-              Dashboard
+              <div className="h-9 w-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-semibold text-sm">
+                {getInitials(auth.user.name)}
+              </div>
             </Link>
           ) : (
             <>
-              <Link
-                href={login()}
-                className={styles.links}
-              >
-                Log in
-              </Link>
+              <a href="/login" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+                Login
+              </a>
               {canRegister && (
-                <Link
-                  href={register()}
-                  className={styles.links}
-                >
+                <a href="/register" className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors">
                   Register
-                </Link>
+                </a>
               )}
             </>
           )}
-        </nav>
-        <button className="text-sm font-medium text-accent hover:text-accent/80 transition-colors md:hidden">
-          Menu
-        </button>
+        </div>
       </div>
     </header>
   );
