@@ -18,7 +18,7 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">Explore</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Blog home</a></li>
+              <li><a href="/" className="text-sm text-muted-foreground hover:text-accent transition-colors">Blog home</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Aim training</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Warmup routines</a></li>
             </ul>
