@@ -115,10 +115,49 @@ services:
     command: >
       sh -c '
         set -e
+        echo "Creating .env file..."
+        cat > .env << EOF
+        APP_NAME="${APP_NAME}"
+        APP_ENV=${APP_ENV}
+        APP_KEY=${APP_KEY}
+        APP_DEBUG=false
+        APP_URL=${APP_URL}
+        
+        DB_CONNECTION=${DB_CONNECTION}
+        DB_HOST=${DB_HOST}
+        DB_PORT=${DB_PORT}
+        DB_DATABASE=${DB_DATABASE}
+        DB_USERNAME=${DB_USERNAME}
+        DB_PASSWORD=${DB_PASSWORD}
+        
+        REDIS_HOST=${REDIS_HOST}
+        
+        MAIL_MAILER=${MAIL_MAILER}
+        MAIL_SCHEME=${MAIL_SCHEME}
+        MAIL_HOST=${MAIL_HOST}
+        MAIL_PORT=${MAIL_PORT}
+        MAIL_USERNAME=${MAIL_USERNAME}
+        MAIL_PASSWORD=${MAIL_PASSWORD}
+        MAIL_FROM_ADDRESS="${MAIL_FROM_ADDRESS}"
+        MAIL_FROM_NAME="${MAIL_FROM_NAME}"
+        
+        SESSION_DRIVER=database
+        QUEUE_CONNECTION=database
+        CACHE_STORE=database
+        EOF
+        
+        echo "Installing dependencies..."
+        composer install --no-dev --optimize-autoloader --no-interaction
+        
+        echo "Waiting for app to be ready..."
         sleep 15
+        
+        echo "Setting up directories..."
         mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
         chown -R www-data:www-data storage bootstrap/cache
         chmod -R ug+rw storage bootstrap/cache
+        
+        echo "Starting queue worker..."
         exec php artisan queue:work --tries=3 --timeout=90
       '
     depends_on:
