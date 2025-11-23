@@ -1,6 +1,6 @@
 export function Hero() {
   const goToRedblockOnline = () => {
-    window.location.href = 'https://redblock.online';
+    window.location.href = 'https://demo.redblock.online';
   };
 
   return (
