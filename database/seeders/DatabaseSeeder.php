@@ -16,17 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::firstOrCreate(
-            ['email' => 'test@admin.com'],
-            [
-                'name' => 'Test Admin',
-                'is_mantainer' => true,
-                'password' => Hash::make('password'),
-                'email_verified_at' => now(),
-            ],
-        );
-
         $this->call([
+            UserSeeder::class,
             CategorySeeder::class,
             ArticleSeeder::class,
             CommentSeeder::class,
