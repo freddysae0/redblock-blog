@@ -2,6 +2,8 @@ import { Link, usePage } from "@inertiajs/react";
 import { dashboard, login, register } from '@/routes';
 import { type SharedData } from '@/types';
 import AppLogoIcon from '@/components/app-logo-icon';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
 
 interface HeaderProps {
   canRegister?: boolean;
@@ -9,6 +11,7 @@ interface HeaderProps {
 
 export function Header({ canRegister = true }: HeaderProps) {
   const { auth } = usePage<SharedData>().props;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Get user initials
   const getInitials = (name: string) => {
@@ -55,18 +58,85 @@ export function Header({ canRegister = true }: HeaderProps) {
             </Link>
           ) : (
             <>
-              <a href="/login" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              <a href="/login" className="hidden md:block text-sm font-medium text-foreground hover:text-accent transition-colors">
                 Login
               </a>
               {canRegister && (
-                <a href="/register" className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors">
+                <a href="/register" className="hidden md:block px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors">
                   Register
                 </a>
               )}
             </>
           )}
+
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 text-foreground hover:text-accent transition-colors"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background">
+          <nav className="px-6 py-4 space-y-3">
+            <a
+              href="/"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Home
+            </a>
+            <a
+              href="/blog"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Blog
+            </a>
+            <a
+              href="/what-is-redblock"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              What is Redblock Online?
+            </a>
+            <a
+              href="/contact"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Contact
+            </a>
+
+            {!auth?.user && (
+              <>
+                <div className="border-t border-border my-3"></div>
+                <a
+                  href="/login"
+                  className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Login
+                </a>
+                {canRegister && (
+                  <a
+                    href="/register"
+                    className="block py-2 px-4 text-sm font-medium bg-primary text-primary-foreground rounded-sm hover:bg-primary/90 transition-colors text-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Register
+                  </a>
+                )}
+              </>
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
