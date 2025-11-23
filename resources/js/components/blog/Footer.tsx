@@ -8,8 +8,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-            
-           <AppLogoIcon className="h-6" />
+
+              <AppLogoIcon className="h-6" />
             </div>
             <p className="text-sm text-muted-foreground">
               The official blog of Redblock Online, a free and minimalist aim trainer to sharpen your precision and reaction time.
@@ -26,7 +26,7 @@ export function Footer() {
           <div className="space-y-3">
             <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">About</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">What is Redblock Online?</a></li>
+              <li><a href="/what-is-redblock" className="text-sm text-muted-foreground hover:text-accent transition-colors">What is Redblock Online?</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Privacy</a></li>
             </ul>

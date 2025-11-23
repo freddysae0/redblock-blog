@@ -19,6 +19,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/what-is-redblock', function () {
+    return Inertia::render('WhatIsRedblock');
+})->name('what-is-redblock');
+
 Route::get('/blog/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {

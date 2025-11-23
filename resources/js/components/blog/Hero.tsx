@@ -1,10 +1,10 @@
 export function Hero() {
   const goToRedblockOnline = () => {
-    window.location.href = 'https://redblock.online';
+    window.location.href = '/what-is-redblock';
   };
 
   return (
-    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[85dvh] flex items-center">
+    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[70dvh] flex items-center">
       <div className=" px-8 flex justify-between flex-wrap gap-8">
         <div className="space-y-6 shrink-0" >
           <div className="flex gap-2">
