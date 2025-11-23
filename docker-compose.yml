@@ -48,14 +48,17 @@ services:
     networks:
       - appnet
     healthcheck:
-      test: ["CMD-SHELL", "php -r 'exit(@fsockopen(\"127.0.0.1\",9000)?0:1);'"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
-      start_period: 10s
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 9000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     command: >
       sh -lc '
         set -e
+        
+        # Wait for database
+        sleep 5
         
         # Migrate with retries
         for i in $(seq 1 30); do
@@ -97,6 +100,9 @@ services:
       sh -lc '
         set -e
         
+        # Wait for app to be ready
+        sleep 10
+        
         # Setup directories and permissions
         mkdir -p resources/views storage/framework/{cache,sessions,views} bootstrap/cache
         rm -f bootstrap/cache/{services.php,packages.php} 2>/dev/null || true
@@ -106,18 +112,13 @@ services:
         # Clear caches
         php artisan cache:clear config:clear event:clear route:clear clear-compiled || true
         
-        # Migrate with retries
-        for i in $(seq 1 30); do
-          php artisan migrate --force && break || echo "Retrying migration...";
-          sleep 3;
-        done
-        
         # Start queue worker
         exec php artisan queue:work --no-interaction --tries=3 --timeout=90
       '
     depends_on:
       - db
       - redis
+      - app
     restart: unless-stopped
     networks:
       - appnet
