@@ -131,9 +131,13 @@ services:
           exit 1
         fi
         echo "Setting up directories..."
-        mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
+        mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache storage/app/public
         chown -R www-data:www-data storage bootstrap/cache public
         chmod -R ug+rw storage bootstrap/cache public
+        
+        echo "Creating storage link..."
+        php artisan storage:link || true
+        
         echo "Clearing caches..."
         php artisan cache:clear || true
         php artisan config:clear || true
