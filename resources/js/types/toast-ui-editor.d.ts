@@ -7,10 +7,10 @@ declare module '@toast-ui/editor' {
         initialValue?: string;
         events?: {
             change?: () => void;
-            [key: string]: any;
+            [key: string]: unknown;
         };
         toolbarItems?: string[][];
-        [key: string]: any;
+        [key: string]: unknown;
     }
 
     export default class Editor {
@@ -18,7 +18,7 @@ declare module '@toast-ui/editor' {
         getMarkdown(): string;
         setMarkdown(markdown: string): void;
         destroy(): void;
-        [key: string]: any;
+        [key: string]: unknown;
     }
 }
 
@@ -27,15 +27,15 @@ declare module '@toast-ui/editor/dist/toastui-editor-viewer' {
         el: HTMLElement;
         initialValue?: string;
         events?: {
-            [key: string]: any;
+            [key: string]: unknown;
         };
-        [key: string]: any;
+        [key: string]: unknown;
     }
 
     export default class Viewer {
         constructor(options: ViewerOptions);
         setMarkdown(markdown: string): void;
         destroy(): void;
-        [key: string]: any;
+        [key: string]: unknown;
     }
 }

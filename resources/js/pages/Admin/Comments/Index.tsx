@@ -1,6 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
 import { Head, Link } from '@inertiajs/react';
-import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { type BreadcrumbItem, type User } from '@/types';
 import { AdminTable } from '@/components/admin/AdminTable';

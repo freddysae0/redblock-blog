@@ -45,6 +45,7 @@ export function MarkdownEditor({ value, onChange, height = '500px', className }:
         return () => {
             editor.destroy();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Update editor content when value prop changes externally

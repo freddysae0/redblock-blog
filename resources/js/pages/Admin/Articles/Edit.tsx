@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { type BreadcrumbItem } from '@/types';
-import { FormEventHandler, useRef } from 'react';
+import { FormEventHandler, useState } from 'react';
 import InputError from '@/components/input-error';
 import { Wand2, Eye } from 'lucide-react';
 import { MediaUpload } from '@/components/admin/MediaUpload';
@@ -48,7 +48,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Edit({ article, categories }: Props) {
-    const actionRef = useRef<'draft' | 'publish' | null>(null);
+    const [submitAction, setSubmitAction] = useState<'draft' | 'publish' | null>(null);
     const { data, setData, put, processing, errors, transform } = useForm({
         title: article.title,
         slug: article.slug,
@@ -61,7 +61,7 @@ export default function Edit({ article, categories }: Props) {
 
     transform((data) => ({
         ...data,
-        action: actionRef.current,
+        action: submitAction,
     }));
 
     const submit: FormEventHandler = (e) => {
@@ -145,6 +145,18 @@ export default function Edit({ article, categories }: Props) {
                         </div>
 
                         <div>
+                            <Label htmlFor="short_description">Short Description</Label>
+                            <Textarea
+                                id="short_description"
+                                value={data.short_description}
+                                onChange={(e) => setData('short_description', e.target.value)}
+                                className="mt-1 block w-full"
+                                rows={3}
+                            />
+                            <InputError message={errors.short_description} className="mt-2" />
+                        </div>
+
+                        <div>
                             <Label htmlFor="body">Content</Label>
                             <MarkdownEditor
                                 value={data.body}
@@ -189,14 +201,14 @@ export default function Edit({ article, categories }: Props) {
                                 type="submit"
                                 variant="secondary"
                                 disabled={processing}
-                                onClick={() => actionRef.current = 'draft'}
+                                onClick={() => setSubmitAction('draft')}
                             >
                                 {article.published_at ? 'Unpublish (Save as Draft)' : 'Save Draft'}
                             </Button>
                             <Button
                                 type="submit"
                                 disabled={processing}
-                                onClick={() => actionRef.current = 'publish'}
+                                onClick={() => setSubmitAction('publish')}
                             >
                                 {article.published_at ? 'Update' : 'Publish'}
                             </Button>

@@ -27,6 +27,7 @@ export function MarkdownViewer({ content, className }: MarkdownViewerProps) {
         return () => {
             viewer.destroy();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Update viewer content when content prop changes
