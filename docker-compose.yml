@@ -11,6 +11,7 @@ services:
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - .:/var/www/html:ro
+      - app_storage:/var/www/html/storage
     restart: unless-stopped
     networks:
       - appnet
@@ -44,6 +45,8 @@ services:
       MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
     volumes:
       - .:/var/www/html
+      - /var/www/html/vendor
+      - app_storage:/var/www/html/storage
     networks:
       - appnet
     command: >
@@ -80,10 +83,6 @@ services:
         echo "SESSION_DRIVER=database" >> .env
         echo "QUEUE_CONNECTION=database" >> .env
         echo "CACHE_STORE=database" >> .env
-        
-        echo "Cleaning previous installation..."
-        rm -rf vendor/ bootstrap/cache/*.php || true
-        mkdir -p vendor
         
         echo "Installing dependencies..."
         export COMPOSER_PROCESS_TIMEOUT=2000
@@ -159,6 +158,8 @@ services:
     environment: *app-env
     volumes:
       - .:/var/www/html
+      - /var/www/html/vendor
+      - app_storage:/var/www/html/storage
     command: >
       sh -c '
         set -e
@@ -186,9 +187,6 @@ services:
         echo "SESSION_DRIVER=database" >> .env
         echo "QUEUE_CONNECTION=database" >> .env
         echo "CACHE_STORE=database" >> .env
-        
-        echo "Cleaning previous installation..."
-        rm -rf vendor/ bootstrap/cache/*.php || true
         
         echo "Installing dependencies..."
         COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
@@ -235,6 +233,7 @@ services:
 volumes:
   db_data:
   redis_data:
+  app_storage:
 
 
 networks:
