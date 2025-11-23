@@ -132,8 +132,8 @@ services:
         fi
         echo "Setting up directories..."
         mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
-        chown -R www-data:www-data storage bootstrap/cache public/build
-        chmod -R ug+rw storage bootstrap/cache public/build
+        chown -R www-data:www-data storage bootstrap/cache public
+        chmod -R ug+rw storage bootstrap/cache public
         echo "Clearing caches..."
         php artisan cache:clear || true
         php artisan config:clear || true
