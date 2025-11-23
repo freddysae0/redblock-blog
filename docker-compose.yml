@@ -91,6 +91,13 @@ services:
         fi
         
         echo "Dependencies installed successfully!"
+        
+        echo "Installing Node dependencies and building assets..."
+        if [ ! -d "node_modules" ]; then
+            npm install
+        fi
+        npm run build
+        
         sleep 5
         echo "Running migrations..."
         migration_success=false
@@ -112,8 +119,8 @@ services:
         fi
         echo "Setting up directories..."
         mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
-        chown -R www-data:www-data storage bootstrap/cache
-        chmod -R ug+rw storage bootstrap/cache
+        chown -R www-data:www-data storage bootstrap/cache public/build
+        chmod -R ug+rw storage bootstrap/cache public/build
         echo "Clearing caches..."
         php artisan cache:clear || true
         php artisan config:clear || true
