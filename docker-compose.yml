@@ -50,35 +50,29 @@ services:
       sh -c '
         set -e
         echo "Creating .env file..."
-        cat > .env << EOF
-        APP_NAME="${APP_NAME}"
-        APP_ENV=${APP_ENV}
-        APP_KEY=${APP_KEY}
-        APP_DEBUG=false
-        APP_URL=${APP_URL}
-        
-        DB_CONNECTION=${DB_CONNECTION}
-        DB_HOST=${DB_HOST}
-        DB_PORT=${DB_PORT}
-        DB_DATABASE=${DB_DATABASE}
-        DB_USERNAME=${DB_USERNAME}
-        DB_PASSWORD=${DB_PASSWORD}
-        
-        REDIS_HOST=${REDIS_HOST}
-        
-        MAIL_MAILER=${MAIL_MAILER}
-        MAIL_SCHEME=${MAIL_SCHEME}
-        MAIL_HOST=${MAIL_HOST}
-        MAIL_PORT=${MAIL_PORT}
-        MAIL_USERNAME=${MAIL_USERNAME}
-        MAIL_PASSWORD=${MAIL_PASSWORD}
-        MAIL_FROM_ADDRESS="${MAIL_FROM_ADDRESS}"
-        MAIL_FROM_NAME="${MAIL_FROM_NAME}"
-        
-        SESSION_DRIVER=database
-        QUEUE_CONNECTION=database
-        CACHE_STORE=database
-        EOF
+        echo "APP_NAME=\"${APP_NAME}\"" > .env
+        echo "APP_ENV=${APP_ENV}" >> .env
+        echo "APP_KEY=${APP_KEY}" >> .env
+        echo "APP_DEBUG=false" >> .env
+        echo "APP_URL=${APP_URL}" >> .env
+        echo "DB_CONNECTION=${DB_CONNECTION}" >> .env
+        echo "DB_HOST=${DB_HOST}" >> .env
+        echo "DB_PORT=${DB_PORT}" >> .env
+        echo "DB_DATABASE=${DB_DATABASE}" >> .env
+        echo "DB_USERNAME=${DB_USERNAME}" >> .env
+        echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+        echo "REDIS_HOST=${REDIS_HOST}" >> .env
+        echo "MAIL_MAILER=${MAIL_MAILER}" >> .env
+        echo "MAIL_SCHEME=${MAIL_SCHEME}" >> .env
+        echo "MAIL_HOST=${MAIL_HOST}" >> .env
+        echo "MAIL_PORT=${MAIL_PORT}" >> .env
+        echo "MAIL_USERNAME=${MAIL_USERNAME}" >> .env
+        echo "MAIL_PASSWORD=${MAIL_PASSWORD}" >> .env
+        echo "MAIL_FROM_ADDRESS=\"${MAIL_FROM_ADDRESS}\"" >> .env
+        echo "MAIL_FROM_NAME=\"${MAIL_FROM_NAME}\"" >> .env
+        echo "SESSION_DRIVER=database" >> .env
+        echo "QUEUE_CONNECTION=database" >> .env
+        echo "CACHE_STORE=database" >> .env
         
         echo "Installing dependencies..."
         composer install --no-dev --optimize-autoloader --no-interaction
@@ -116,35 +110,29 @@ services:
       sh -c '
         set -e
         echo "Creating .env file..."
-        cat > .env << EOF
-        APP_NAME="${APP_NAME}"
-        APP_ENV=${APP_ENV}
-        APP_KEY=${APP_KEY}
-        APP_DEBUG=false
-        APP_URL=${APP_URL}
-        
-        DB_CONNECTION=${DB_CONNECTION}
-        DB_HOST=${DB_HOST}
-        DB_PORT=${DB_PORT}
-        DB_DATABASE=${DB_DATABASE}
-        DB_USERNAME=${DB_USERNAME}
-        DB_PASSWORD=${DB_PASSWORD}
-        
-        REDIS_HOST=${REDIS_HOST}
-        
-        MAIL_MAILER=${MAIL_MAILER}
-        MAIL_SCHEME=${MAIL_SCHEME}
-        MAIL_HOST=${MAIL_HOST}
-        MAIL_PORT=${MAIL_PORT}
-        MAIL_USERNAME=${MAIL_USERNAME}
-        MAIL_PASSWORD=${MAIL_PASSWORD}
-        MAIL_FROM_ADDRESS="${MAIL_FROM_ADDRESS}"
-        MAIL_FROM_NAME="${MAIL_FROM_NAME}"
-        
-        SESSION_DRIVER=database
-        QUEUE_CONNECTION=database
-        CACHE_STORE=database
-        EOF
+        echo "APP_NAME=\"${APP_NAME}\"" > .env
+        echo "APP_ENV=${APP_ENV}" >> .env
+        echo "APP_KEY=${APP_KEY}" >> .env
+        echo "APP_DEBUG=false" >> .env
+        echo "APP_URL=${APP_URL}" >> .env
+        echo "DB_CONNECTION=${DB_CONNECTION}" >> .env
+        echo "DB_HOST=${DB_HOST}" >> .env
+        echo "DB_PORT=${DB_PORT}" >> .env
+        echo "DB_DATABASE=${DB_DATABASE}" >> .env
+        echo "DB_USERNAME=${DB_USERNAME}" >> .env
+        echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+        echo "REDIS_HOST=${REDIS_HOST}" >> .env
+        echo "MAIL_MAILER=${MAIL_MAILER}" >> .env
+        echo "MAIL_SCHEME=${MAIL_SCHEME}" >> .env
+        echo "MAIL_HOST=${MAIL_HOST}" >> .env
+        echo "MAIL_PORT=${MAIL_PORT}" >> .env
+        echo "MAIL_USERNAME=${MAIL_USERNAME}" >> .env
+        echo "MAIL_PASSWORD=${MAIL_PASSWORD}" >> .env
+        echo "MAIL_FROM_ADDRESS=\"${MAIL_FROM_ADDRESS}\"" >> .env
+        echo "MAIL_FROM_NAME=\"${MAIL_FROM_NAME}\"" >> .env
+        echo "SESSION_DRIVER=database" >> .env
+        echo "QUEUE_CONNECTION=database" >> .env
+        echo "CACHE_STORE=database" >> .env
         
         echo "Installing dependencies..."
         composer install --no-dev --optimize-autoloader --no-interaction
