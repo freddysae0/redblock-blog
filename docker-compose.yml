@@ -78,13 +78,31 @@ services:
         rm -rf vendor/ bootstrap/cache/*.php || true
         
         echo "Installing dependencies..."
-        COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+        if ! COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist; then
+          echo "ERROR: Composer install failed!"
+          exit 1
+        fi
+        
+        echo "Dependencies installed successfully!"
         sleep 5
         echo "Running migrations..."
+        migration_success=false
         for i in $(seq 1 30); do
-          php artisan migrate --force && break || echo "Retrying...";
+          if php artisan migrate --force; then
+            migration_success=true
+            echo "Migrations completed successfully!"
+            break
+          fi
+          echo "Migration attempt $i failed, retrying in 3s...";
           sleep 3;
         done
+        
+        if [ "$migration_success" = false ]; then
+          echo "ERROR: Migrations failed after 30 attempts!"
+          echo "Checking database connection..."
+          php artisan db:show || true
+          exit 1
+        fi
         echo "Setting up directories..."
         mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
         chown -R www-data:www-data storage bootstrap/cache
