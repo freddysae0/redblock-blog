@@ -5,8 +5,7 @@ services:
       context: .
       dockerfile: docker/nginx/Dockerfile
     depends_on:
-      app:
-        condition: service_healthy
+      - app
     ports:
       - "8888:80"
     volumes:
@@ -46,39 +45,19 @@ services:
       - .:/var/www/html
     networks:
       - appnet
-    healthcheck:
-      test: ["CMD-SHELL", "nc -z 127.0.0.1 9000 || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
     command: >
-      sh -lc '
+      sh -c '
         set -e
-        
-        # Wait for database
         sleep 5
-        
-        # Migrate with retries
         for i in $(seq 1 30); do
-          php artisan migrate --force && break || echo "Retrying migration...";
+          php artisan migrate --force && break || echo "Retrying...";
           sleep 3;
         done
-        
-        # Setup directories and permissions
-        mkdir -p resources/views storage/framework/{cache,sessions,views} bootstrap/cache
-        rm -f bootstrap/cache/{services.php,packages.php} 2>/dev/null || true
+        mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
         chown -R www-data:www-data storage bootstrap/cache
         chmod -R ug+rw storage bootstrap/cache
-        
-        # Clear caches
-        php artisan cache:clear config:clear event:clear route:clear clear-compiled || true
-        
-        # Cache in production only
-        if [ "$$APP_ENV" = "production" ] && [ -n "$$APP_KEY" ]; then
-          php artisan config:cache route:cache || true
-        fi
-        
+        php artisan cache:clear || true
+        php artisan config:clear || true
         exec php-fpm -F
       '
     depends_on:
@@ -96,23 +75,13 @@ services:
     volumes:
       - .:/var/www/html
     command: >
-      sh -lc '
+      sh -c '
         set -e
-        
-        # Wait for app to be ready
-        sleep 10
-        
-        # Setup directories and permissions
-        mkdir -p resources/views storage/framework/{cache,sessions,views} bootstrap/cache
-        rm -f bootstrap/cache/{services.php,packages.php} 2>/dev/null || true
+        sleep 15
+        mkdir -p storage/framework/{cache,sessions,views} bootstrap/cache
         chown -R www-data:www-data storage bootstrap/cache
         chmod -R ug+rw storage bootstrap/cache
-        
-        # Clear caches
-        php artisan cache:clear config:clear event:clear route:clear clear-compiled || true
-        
-        # Start queue worker
-        exec php artisan queue:work --no-interaction --tries=3 --timeout=90
+        exec php artisan queue:work --tries=3 --timeout=90
       '
     depends_on:
       - db
@@ -145,6 +114,7 @@ services:
 volumes:
   db_data:
   redis_data:
+
 
 networks:
   appnet:
