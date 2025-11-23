@@ -25,7 +25,7 @@ class DashboardController extends Controller
         // Chart Data (Views per day for last 30 days)
         // Note: This query might need adjustment depending on database driver (SQLite vs MySQL/Postgres)
         // For SQLite (which is likely used here based on previous context), we use strftime
-        $chartData = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as views'))
+        $chartData = View::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as unique_views'))
             ->where('created_at', '>=', now()->subDays(30))
             ->groupBy('date')
             ->orderBy('date')

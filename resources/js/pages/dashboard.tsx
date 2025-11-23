@@ -24,7 +24,7 @@ interface Props {
     };
     chartData: {
         date: string;
-        views: number;
+        unique_views: number;
     }[];
     popularArticles: {
         id: number;
@@ -122,7 +122,7 @@ export default function Dashboard({ stats, chartData, popularArticles, recentCom
                                             cursor={{ fill: 'transparent' }}
                                             contentStyle={{ borderRadius: '8px', backgroundColor: 'var(--sidebar)', border: 0 }}
                                         />
-                                        <Bar dataKey="views" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
+                                        <Bar dataKey="unique_views" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
