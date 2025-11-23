@@ -2,7 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Trash2, Ban, CheckCircle } from 'lucide-react';
+import { Trash2, Ban, CheckCircle, Shield, ShieldOff } from 'lucide-react';
 import { type BreadcrumbItem, type User } from '@/types';
 import { AdminTable } from '@/components/admin/AdminTable';
 import { AdminPagination } from '@/components/admin/AdminPagination';
@@ -22,6 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 interface ExtendedUser extends User {
     is_disabled: boolean;
+    is_mantainer: boolean;
 }
 
 interface PaginationLink {
@@ -51,6 +52,10 @@ export default function Index({ users, filters }: Props) {
         router.patch(`/users/${id}/toggle-status`);
     };
 
+    const handleToggleMaintainer = (id: number) => {
+        router.patch(`/users/${id}/toggle-maintainer`);
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Users" />
@@ -69,7 +74,14 @@ export default function Index({ users, filters }: Props) {
                     columns={[
                         {
                             header: 'Name',
-                            accessor: (user) => <span className="font-medium">{user.name}</span>,
+                            accessor: (user) => (
+                                <div className="flex items-center gap-2">
+                                    <span className="font-medium">{user.name}</span>
+                                    {user.is_mantainer && (
+                                        <Shield className="h-3 w-3 text-blue-500" />
+                                    )}
+                                </div>
+                            ),
                         },
                         {
                             header: 'Email',
@@ -95,6 +107,18 @@ export default function Index({ users, filters }: Props) {
                             header: 'Actions',
                             accessor: (user) => (
                                 <div className="flex justify-end gap-2">
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => handleToggleMaintainer(user.id)}
+                                        title={user.is_mantainer ? 'Remove Maintainer' : 'Make Maintainer'}
+                                    >
+                                        {user.is_mantainer ? (
+                                            <ShieldOff className="h-4 w-4 text-orange-500" />
+                                        ) : (
+                                            <Shield className="h-4 w-4 text-blue-500" />
+                                        )}
+                                    </Button>
                                     <Button
                                         variant="ghost"
                                         size="icon"

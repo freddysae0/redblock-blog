@@ -50,4 +50,17 @@ class UserController extends Controller
 
         return back();
     }
+
+    public function toggleMaintainer(User $user)
+    {
+        if (auth()->id() === $user->id) {
+            return back()->with('error', 'You cannot change your own maintainer status.');
+        }
+
+        $user->update([
+            'is_mantainer' => !$user->is_mantainer,
+        ]);
+
+        return back();
+    }
 }
