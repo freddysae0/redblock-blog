@@ -6,6 +6,7 @@ use Laravel\Fortify\Features;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
 use App\Models\Article;
@@ -22,6 +23,10 @@ Route::get('/', function () {
 Route::get('/what-is-redblock', function () {
     return Inertia::render('WhatIsRedblock');
 })->name('what-is-redblock');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 
 Route::get('/blog/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
 

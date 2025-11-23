@@ -27,7 +27,7 @@ export function Footer() {
             <h4 className="font-semibold text-foreground text-sm uppercase tracking-wide">About</h4>
             <ul className="space-y-2">
               <li><a href="/what-is-redblock" className="text-sm text-muted-foreground hover:text-accent transition-colors">What is Redblock Online?</a></li>
-              <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
+              <li><a href="/contact" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
               <li><a href="#" className="text-sm text-muted-foreground hover:text-accent transition-colors">Privacy</a></li>
             </ul>
           </div>
