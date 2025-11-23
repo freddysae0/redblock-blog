@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { type BreadcrumbItem } from '@/types';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useRef } from 'react';
 import InputError from '@/components/input-error';
-import { Wand2 } from 'lucide-react';
+import { Wand2, Eye } from 'lucide-react';
 import { MediaUpload } from '@/components/admin/MediaUpload';
 import { MarkdownEditor } from '@/components/admin/MarkdownEditor';
 
@@ -22,6 +22,7 @@ interface Article {
     body: string;
     media_file: string | null;
     categories: Category[];
+    published_at: string | null;
 }
 
 interface Props {
@@ -45,13 +46,20 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Edit({ article, categories }: Props) {
-    const { data, setData, put, processing, errors } = useForm({
+    const actionRef = useRef<'draft' | 'publish' | null>(null);
+    const { data, setData, put, processing, errors, transform } = useForm({
         title: article.title,
         slug: article.slug,
         body: article.body,
         media_file: article.media_file || '',
         category_ids: article.categories.map(c => c.id),
+        action: null as 'draft' | 'publish' | null,
     });
+
+    transform((data) => ({
+        ...data,
+        action: actionRef.current,
+    }));
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -78,8 +86,16 @@ export default function Edit({ article, categories }: Props) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Edit Article" />
             <div className="p-6 max-w-4xl mx-auto">
-                <div className="mb-6">
+                <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold">Edit Article</h1>
+                    <div className="flex gap-2">
+                        <Button variant="outline" asChild>
+                            <a href={`/blog/${article.slug}`} target="_blank" rel="noopener noreferrer">
+                                <Eye className="mr-2 h-4 w-4" />
+                                Preview
+                            </a>
+                        </Button>
+                    </div>
                 </div>
 
                 <div className="bg-white dark:bg-sidebar rounded-xl border border-sidebar-border shadow-sm p-6">
@@ -154,8 +170,20 @@ export default function Edit({ article, categories }: Props) {
                             <Button variant="outline" asChild>
                                 <Link href="/articles">Cancel</Link>
                             </Button>
-                            <Button type="submit" disabled={processing}>
-                                Update Article
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                disabled={processing}
+                                onClick={() => actionRef.current = 'draft'}
+                            >
+                                {article.published_at ? 'Unpublish (Save as Draft)' : 'Save Draft'}
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                                onClick={() => actionRef.current = 'publish'}
+                            >
+                                {article.published_at ? 'Update' : 'Publish'}
                             </Button>
                         </div>
                     </form >

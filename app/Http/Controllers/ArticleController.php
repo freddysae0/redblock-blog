@@ -45,6 +45,7 @@ class ArticleController extends Controller
             'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['array'],
             'category_ids.*' => ['integer', 'exists:categories,id'],
+            'action' => ['required', 'string', 'in:draft,publish'],
         ]);
 
         $article = Article::create([
@@ -52,6 +53,7 @@ class ArticleController extends Controller
             'slug' => $data['slug'],
             'body' => $data['body'],
             'media_file' => $data['media_file'] ?? null,
+            'published_at' => $data['action'] === 'publish' ? now() : null,
         ]);
 
         if (!empty($data['category_ids'])) {
@@ -63,6 +65,10 @@ class ArticleController extends Controller
 
     public function show(Article $article)
     {
+        if (!$article->published_at && (!auth()->check() || !auth()->user()->is_mantainer)) {
+            abort(404);
+        }
+
         $article->increment('total_views');
 
         if (auth()->check()) {
@@ -101,7 +107,12 @@ class ArticleController extends Controller
             'media_file' => ['nullable', 'string', 'max:255'],
             'category_ids' => ['sometimes', 'array'],
             'category_ids.*' => ['integer', 'exists:categories,id'],
+            'action' => ['nullable', 'string', 'in:draft,publish'],
         ]);
+
+        if (isset($data['action'])) {
+            $data['published_at'] = $data['action'] === 'publish' ? now() : null;
+        }
 
         $article->update($data);
 

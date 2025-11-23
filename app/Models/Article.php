@@ -15,6 +15,11 @@ class Article extends Model
         'body',
         'media_file',
         'user_id',
+        'published_at',
+    ];
+
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 
     protected $appends = ['media_url'];
@@ -22,6 +27,16 @@ class Article extends Model
     public function getMediaUrlAttribute(): ?string
     {
         return $this->media_file ? asset('storage/media/' . $this->media_file) : null;
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at');
+    }
+
+    public function scopeDraft($query)
+    {
+        return $query->whereNull('published_at');
     }
 
     public function categories()

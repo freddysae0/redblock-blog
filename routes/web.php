@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Models\Article;
 
 Route::get('/', function () {
-    $articles = Article::with('categories')->latest()->take(6)->get();
+    $articles = Article::published()->with('categories')->latest()->take(6)->get();
 
     return Inertia::render('welcome', [
         'canRegister' => Features::enabled(Features::registration()),

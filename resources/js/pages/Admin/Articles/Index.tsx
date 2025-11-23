@@ -19,6 +19,7 @@ interface Article {
     title: string;
     created_at: string;
     categories: Category[];
+    published_at: string | null;
 }
 
 interface PaginationLink {
@@ -76,11 +77,19 @@ export default function Index({ articles, filters }: Props) {
                             accessor: (article) => <span className="font-medium">{article.title}</span>,
                         },
                         {
+                            header: 'Status',
+                            accessor: (article) => (
+                                <Badge variant={article.published_at ? 'default' : 'secondary'}>
+                                    {article.published_at ? 'Published' : 'Draft'}
+                                </Badge>
+                            ),
+                        },
+                        {
                             header: 'Categories',
                             accessor: (article) => (
                                 <div className="flex gap-2 flex-wrap">
                                     {article.categories.map((category) => (
-                                        <Badge key={category.id} variant="secondary">
+                                        <Badge key={category.id} variant="outline">
                                             {category.title}
                                         </Badge>
                                     ))}

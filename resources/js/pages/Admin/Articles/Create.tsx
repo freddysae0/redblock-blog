@@ -34,14 +34,25 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+import { useRef } from 'react';
+
+// ... (imports remain the same, ensure useRef is imported)
+
 export default function Create({ categories }: Props) {
-    const { data, setData, post, processing, errors } = useForm({
+    const actionRef = useRef<'draft' | 'publish'>('draft');
+    const { data, setData, post, processing, errors, transform } = useForm({
         title: '',
         slug: '',
         body: '',
         media_file: '',
         category_ids: [] as number[],
+        action: 'draft',
     });
+
+    transform((data) => ({
+        ...data,
+        action: actionRef.current,
+    }));
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -144,8 +155,20 @@ export default function Create({ categories }: Props) {
                             <Button variant="outline" asChild>
                                 <Link href="/articles">Cancel</Link>
                             </Button>
-                            <Button type="submit" disabled={processing}>
-                                Create Article
+                            <Button
+                                type="submit"
+                                variant="secondary"
+                                disabled={processing}
+                                onClick={() => actionRef.current = 'draft'}
+                            >
+                                Save Draft
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                                onClick={() => actionRef.current = 'publish'}
+                            >
+                                Publish
                             </Button>
                         </div>
                     </form >
