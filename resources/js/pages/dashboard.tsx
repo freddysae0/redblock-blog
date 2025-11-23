@@ -45,9 +45,27 @@ interface Props {
         };
     }[];
     recentUsers: User[];
+    maintainers: User[];
+    isMaintainer?: boolean;
 }
 
-export default function Dashboard({ stats, chartData, popularArticles, recentComments, recentUsers }: Props) {
+export default function Dashboard({ stats, chartData, popularArticles, recentComments, recentUsers, maintainers, isMaintainer = true }: Props) {
+    if (!isMaintainer) {
+        return (
+            <AppLayout breadcrumbs={breadcrumbs}>
+                <Head title="Dashboard" />
+                <div className="flex flex-1 flex-col items-center justify-center p-4 pt-0 min-h-[60vh]">
+                    <div className="text-center space-y-4">
+                        <h1 className="text-4xl font-bold tracking-tight">Coming Soon</h1>
+                        <p className="text-muted-foreground text-lg max-w-md mx-auto">
+                            We're working hard to bring you an amazing dashboard experience. Stay tuned!
+                        </p>
+                    </div>
+                </div>
+            </AppLayout>
+        );
+    }
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -208,19 +226,70 @@ export default function Dashboard({ stats, chartData, popularArticles, recentCom
 
                         <Card>
                             <CardHeader>
+                                <CardTitle>Maintainers</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="space-y-4">
+                                    {maintainers.map((user) => (
+                                        <div key={user.id} className="flex items-center justify-between">
+                                            <div className="flex items-center">
+                                                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold mr-3 text-xs">
+                                                    {user.name.charAt(0)}
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <p className="text-sm font-medium leading-none">{user.name}</p>
+                                                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                                                </div>
+                                            </div>
+                                            <Link
+                                                href={`/users/${user.id}/toggle-maintainer`}
+                                                method="patch"
+                                                as="button"
+                                                preserveScroll
+                                                className="text-xs text-destructive hover:underline"
+                                            >
+                                                Demote
+                                            </Link>
+                                        </div>
+                                    ))}
+                                    {maintainers.length === 0 && (
+                                        <p className="text-sm text-muted-foreground">No maintainers yet.</p>
+                                    )}
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader>
                                 <CardTitle>New Users</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-8">
                                     {recentUsers.map((user) => (
-                                        <div key={user.id} className="flex items-center">
-                                            <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold mr-4">
-                                                {user.name.charAt(0)}
+                                        <div key={user.id} className="flex items-center justify-between">
+                                            <div className="flex items-center">
+                                                <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold mr-4">
+                                                    {user.name.charAt(0)}
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <p className="text-sm font-medium leading-none">
+                                                        {user.name}
+                                                        {user.is_mantainer && <span className="ml-2 text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">Maintainer</span>}
+                                                    </p>
+                                                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                                                </div>
                                             </div>
-                                            <div className="space-y-1">
-                                                <p className="text-sm font-medium leading-none">{user.name}</p>
-                                                <p className="text-sm text-muted-foreground">{user.email}</p>
-                                            </div>
+                                            {!user.is_mantainer && (
+                                                <Link
+                                                    href={`/users/${user.id}/toggle-maintainer`}
+                                                    method="patch"
+                                                    as="button"
+                                                    preserveScroll
+                                                    className="text-xs text-primary hover:underline"
+                                                >
+                                                    Promote
+                                                </Link>
+                                            )}
                                         </div>
                                     ))}
                                 </div>

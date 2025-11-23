@@ -10,6 +10,8 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $categories = Category::query()
             ->when($request->search, function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
@@ -25,11 +27,15 @@ class CategoryController extends Controller
 
     public function create()
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         return Inertia::render('Admin/Categories/Create');
     }
 
     public function store(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -48,6 +54,8 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         return Inertia::render('Admin/Categories/Edit', [
             'category' => $category,
         ]);
@@ -55,6 +63,8 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $data = $request->validate([
             'title' => ['sometimes', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
@@ -67,6 +77,8 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');

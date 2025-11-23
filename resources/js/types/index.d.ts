@@ -20,12 +20,17 @@ export interface NavItem {
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    permission?: string;
 }
 
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
+    flash: {
+        success: string | null;
+        error: string | null;
+    };
     sidebarOpen: boolean;
     [key: string]: unknown;
 }
@@ -39,6 +44,7 @@ export interface User {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
+    is_mantainer: boolean;
     [key: string]: unknown; // This allows for additional properties...
 }
 

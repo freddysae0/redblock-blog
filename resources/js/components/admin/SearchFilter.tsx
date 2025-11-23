@@ -22,6 +22,11 @@ export function SearchFilter({ placeholder = 'Search...', route, initialValue = 
         }
 
         const url = route || window.location.pathname;
+        const currentSearch = new URLSearchParams(window.location.search).get('search') || '';
+
+        if (debouncedValue === currentSearch) {
+            return;
+        }
 
         router.get(
             url,

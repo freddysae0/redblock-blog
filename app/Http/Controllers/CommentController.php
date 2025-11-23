@@ -12,6 +12,8 @@ class CommentController extends Controller
 {
     public function index(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $comments = Comment::with(['user', 'article'])
             ->when($request->search, function ($query, $search) {
                 $query->where('body', 'like', "%{$search}%")

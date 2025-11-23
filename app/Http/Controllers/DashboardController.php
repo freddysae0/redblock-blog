@@ -14,6 +14,14 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
+        if (!$user->is_mantainer) {
+            return Inertia::render('dashboard', [
+                'isMaintainer' => false,
+            ]);
+        }
+
         // Stats
         $stats = [
             'totalArticles' => Article::count(),
@@ -47,12 +55,17 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        // Maintainers
+        $maintainers = User::where('is_mantainer', true)->get();
+
         return Inertia::render('dashboard', [
+            'isMaintainer' => true,
             'stats' => $stats,
             'chartData' => $chartData,
             'popularArticles' => $popularArticles,
             'recentComments' => $recentComments,
             'recentUsers' => $recentUsers,
+            'maintainers' => $maintainers,
         ]);
     }
 }

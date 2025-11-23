@@ -12,6 +12,8 @@ class ArticleController extends Controller
 {
     public function index(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $articles = Article::with('categories')
             ->when($request->search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -31,6 +33,8 @@ class ArticleController extends Controller
 
     public function create()
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         return Inertia::render('Admin/Articles/Create', [
             'categories' => Category::all(),
         ]);
@@ -38,6 +42,8 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:articles,slug'],
@@ -92,6 +98,8 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         return Inertia::render('Admin/Articles/Edit', [
             'article' => $article->load('categories'),
             'categories' => Category::all(),
@@ -100,6 +108,8 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $data = $request->validate([
             'title' => ['sometimes', 'string', 'max:255'],
             'slug' => ['sometimes', 'string', 'max:255', 'unique:articles,slug,' . $article->id],
@@ -125,6 +135,8 @@ class ArticleController extends Controller
 
     public function destroy(Article $article)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $article->delete();
 
         return redirect()->route('articles.index')->with('success', 'Article deleted successfully.');

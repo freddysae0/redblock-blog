@@ -20,26 +20,31 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: '/dashboard',
         icon: LayoutGrid,
+        permission: 'all',
     },
     {
         title: 'Articles',
         href: '/articles',
         icon: FileText,
+        permission: 'is_mantainer',
     },
     {
         title: 'Categories',
         href: '/categories',
         icon: Folder,
+        permission: 'is_mantainer',
     },
     {
         title: 'Users',
         href: '/users',
         icon: Users,
+        permission: 'is_mantainer',
     },
     {
         title: 'Comments',
         href: '/comments',
         icon: MessageSquare,
+        permission: 'is_mantainer',
     },
 ];
 
@@ -63,7 +68,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href="/" prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

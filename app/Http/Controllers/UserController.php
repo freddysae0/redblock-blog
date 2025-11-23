@@ -10,6 +10,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         $users = User::query()
             ->when($request->search, function ($query, $search) {
                 $query->where(function ($q) use ($search) {
@@ -28,6 +30,8 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         // Prevent deleting self
         if (auth()->id() === $user->id) {
             return redirect()->back()->with('error', 'You cannot delete your own account.');
@@ -40,6 +44,8 @@ class UserController extends Controller
 
     public function toggleStatus(User $user)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         if (auth()->id() === $user->id) {
             return back()->with('error', 'You cannot disable yourself.');
         }
@@ -53,6 +59,8 @@ class UserController extends Controller
 
     public function toggleMaintainer(User $user)
     {
+        abort_unless(auth()->user()->is_mantainer, 403);
+
         if (auth()->id() === $user->id) {
             return back()->with('error', 'You cannot change your own maintainer status.');
         }
@@ -61,6 +69,6 @@ class UserController extends Controller
             'is_mantainer' => !$user->is_mantainer,
         ]);
 
-        return back();
+        return back()->with('success', 'Maintainer status updated successfully.');
     }
 }
