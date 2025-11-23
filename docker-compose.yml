@@ -74,8 +74,11 @@ services:
         echo "QUEUE_CONNECTION=database" >> .env
         echo "CACHE_STORE=database" >> .env
         
+        echo "Cleaning previous installation..."
+        rm -rf vendor/ bootstrap/cache/*.php || true
+        
         echo "Installing dependencies..."
-        composer install --no-dev --optimize-autoloader --no-interaction
+        COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
         sleep 5
         echo "Running migrations..."
         for i in $(seq 1 30); do
@@ -134,8 +137,11 @@ services:
         echo "QUEUE_CONNECTION=database" >> .env
         echo "CACHE_STORE=database" >> .env
         
+        echo "Cleaning previous installation..."
+        rm -rf vendor/ bootstrap/cache/*.php || true
+        
         echo "Installing dependencies..."
-        composer install --no-dev --optimize-autoloader --no-interaction
+        COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
         
         echo "Waiting for app to be ready..."
         sleep 15
