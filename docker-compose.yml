@@ -25,6 +25,7 @@ services:
       APP_ENV: ${APP_ENV:-production}
       APP_KEY: ${APP_KEY}
       APP_URL: ${APP_URL}
+      APP_NAME: "${APP_NAME}"
       VIEW_COMPILED_PATH: /var/www/html/storage/framework/views
       DB_CONNECTION: ${DB_CONNECTION:-pgsql}
       DB_HOST: db
@@ -39,8 +40,8 @@ services:
       MAIL_PORT: ${MAIL_PORT}
       MAIL_USERNAME: ${MAIL_USERNAME}
       MAIL_PASSWORD: ${MAIL_PASSWORD}
-      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
-      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+      MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
+      MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
     volumes:
       - .:/var/www/html
     networks:
