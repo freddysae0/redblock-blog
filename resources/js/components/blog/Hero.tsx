@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[70dvh] flex items-center">
       <div className=" px-8 flex justify-between flex-wrap gap-8">
-        <div className="space-y-6 shrink-0" >
+        <div className="space-y-6" >
           <div className="flex gap-2">
             <div className="w-1 h-8 bg-accent rounded-full" />
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
