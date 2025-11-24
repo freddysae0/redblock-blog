@@ -4,7 +4,7 @@ export function Hero() {
   };
 
   return (
-    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[70dvh] flex items-center">
+    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[120vh] md:h-[100vh] flex items-center">
       <div className=" px-8 flex justify-between flex-wrap gap-8">
         <div className="space-y-6" >
           <div className="flex gap-2">
