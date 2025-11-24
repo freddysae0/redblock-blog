@@ -34,7 +34,8 @@ export default function Create() {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <AppLayout breadcrumbs={breadcrumbs} >
+            <div className="h-screen">
             <Head title="Create Category" />
             <div className="p-6 max-w-4xl mx-auto">
                 <div className="mb-6">
@@ -61,7 +62,7 @@ export default function Create() {
                                 id="description"
                                 value={data.description}
                                 onChange={(e) => setData('description', e.target.value)}
-                                className="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[100px]"
+                                className="mt-1 block w-full rounded-md border border-sidebar-border shadow-sm bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 min-h-[100px]"
                             />
                             <InputError message={errors.description} className="mt-2" />
                         </div>
@@ -76,7 +77,7 @@ export default function Create() {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div></div>
         </AppLayout>
     );
 }
