@@ -54,8 +54,8 @@ export default function WhatIsRedblock() {
                                 The Future of FPS Training
                             </div>
                             <h1 className="text-4xl md:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">
-                                Train Smarter. <br />
-                                <span className="text-primary">Build Together.</span>
+                                Train Smarter <br />
+                                <span className="text-primary">Build Together</span>
                             </h1>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                                 Redblock Online is not just another aim trainer. It's a community-driven sandbox where you can design immersive scenarios, compete with friends, and train in worlds that feel like real games.
