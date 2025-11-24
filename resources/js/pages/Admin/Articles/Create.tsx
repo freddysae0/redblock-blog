@@ -129,18 +129,6 @@ export default function Create({ categories }: Props) {
                         </div>
 
                         <div>
-                            <Label htmlFor="short_description">Short Description</Label>
-                            <Textarea
-                                id="short_description"
-                                value={data.short_description}
-                                onChange={(e) => setData('short_description', e.target.value)}
-                                className="mt-1 block w-full"
-                                rows={3}
-                            />
-                            <InputError message={errors.short_description} className="mt-2" />
-                        </div>
-
-                        <div>
                             <Label htmlFor="body">Content</Label>
                             <MarkdownEditor
                                 value={data.body}
