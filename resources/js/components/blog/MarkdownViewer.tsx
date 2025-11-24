@@ -49,8 +49,22 @@ export function MarkdownViewer({ content, className }: MarkdownViewerProps) {
                     font-family: var(--font-sans) !important;
                     color: var(--foreground) !important;
                 }
+                .toastui-editor-contents h1,
+                .toastui-editor-contents h2,
+                .toastui-editor-contents h3,
+                .toastui-editor-contents h4,
+                .toastui-editor-contents h5,
+                .toastui-editor-contents h6 {
+                    color: var(--foreground) !important;
+                }
                 .dark .toastui-editor-contents p,
-                .dark .toastui-editor-contents li {
+                .dark .toastui-editor-contents li,
+                .dark .toastui-editor-contents h1,
+                .dark .toastui-editor-contents h2,
+                .dark .toastui-editor-contents h3,
+                .dark .toastui-editor-contents h4,
+                .dark .toastui-editor-contents h5,
+                .dark .toastui-editor-contents h6 {
                     color: var(--foreground) !important;
                 }
             `}</style>
