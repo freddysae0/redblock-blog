@@ -19,6 +19,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><a href="/" className="text-sm text-muted-foreground hover:text-accent transition-colors">Home</a></li>
               <li><a href="/blog" className="text-sm text-muted-foreground hover:text-accent transition-colors">Blog</a></li>
+              <li><a href="/faq" className="text-sm text-muted-foreground hover:text-accent transition-colors">FAQ</a></li>
               <li><a href="/what-is-redblock" className="text-sm text-muted-foreground hover:text-accent transition-colors">What is Redblock Online?</a></li>
               <li><a href="/contact" className="text-sm text-muted-foreground hover:text-accent transition-colors">Contact</a></li>
             </ul>

@@ -40,6 +40,9 @@ export function Header({ canRegister = true }: HeaderProps) {
             <a href="/what-is-redblock" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
               What is Redblock Online?
             </a>
+            <a href="/faq" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              FAQ
+            </a>
             <a href="/contact" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
               Contact
             </a>
@@ -104,6 +107,13 @@ export function Header({ canRegister = true }: HeaderProps) {
               onClick={() => setMobileMenuOpen(false)}
             >
               What is Redblock Online?
+            </a>
+            <a
+              href="/faq"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              FAQ
             </a>
             <a
               href="/contact"
