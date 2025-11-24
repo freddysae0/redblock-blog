@@ -44,9 +44,14 @@ export function MarkdownViewer({ content, className }: MarkdownViewerProps) {
                     font-family: var(--font-sans) !important;
                     font-size: 1.125rem;
                 }
-                .toastui-editor-contents p, 
+                .toastui-editor-contents p,
                 .toastui-editor-contents li {
                     font-family: var(--font-sans) !important;
+                    color: var(--foreground) !important;
+                }
+                .dark .toastui-editor-contents p,
+                .dark .toastui-editor-contents li {
+                    color: var(--foreground) !important;
                 }
             `}</style>
             <div ref={viewerRef} />

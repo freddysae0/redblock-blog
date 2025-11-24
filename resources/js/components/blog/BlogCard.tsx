@@ -32,11 +32,11 @@ export function BlogCard({ post }: BlogCardProps) {
         </div>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-accent uppercase tracking-wide">{post.category}</span>
+            <span className="text-xs font-semibold text-primary uppercase tracking-wide group-hover:text-primary">{post.category}</span>
             <span className="text-xs text-muted-foreground">•</span>
             <span className="text-xs text-muted-foreground">{post.time_to_read} min read</span>
           </div>
-          <h3 className="text-lg font-bold text-foreground group-hover:text-accent transition-colors line-clamp-2">
+          <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-2">
             {post.title}
           </h3>
           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
