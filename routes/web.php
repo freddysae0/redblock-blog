@@ -13,6 +13,25 @@ use App\Http\Controllers\UserController;
 use App\Models\Article;
 use App\Models\Category;
 
+Route::get('/robots.txt', function () {
+    $content = "";
+    if (! app()->environment('production')) {
+        // Block everything in local / staging / testing
+        $content = "User-agent: *\nDisallow: /";
+    } else {
+        // Production rules – customize as you like
+        $content = <<<ROBOTS
+User-agent: *
+Disallow:
+
+ROBOTS;
+    }
+
+    return response($content, 200, [
+        'Content-Type' => 'text/plain', 
+    ]);
+});
+
 Route::get('/', function () {
     // Show popular articles (most recent 6)
     $articles = Article::published()->with('categories')->latest()->take(6)->get();
