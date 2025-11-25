@@ -11,6 +11,24 @@ export default function FAQ() {
                     name="description"
                     content="Frequently asked questions about Redblock Online, the free and minimalist FPS aim training platform."
                 />
+                {/* Open Graph */}
+                <meta property="og:title" content="Frequently Asked Questions" />
+                <meta
+                    property="og:description"
+                    content="Frequently asked questions about Redblock Online, the free and minimalist FPS aim training platform."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://redblock.online/faq" />
+                <meta property="og:image" content="https://redblock.online/og-image.png" />
+
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Frequently Asked Questions" />
+                <meta
+                    name="twitter:description"
+                    content="Frequently asked questions about Redblock Online, the free and minimalist FPS aim training platform."
+                />
+                <meta name="twitter:image" content="https://redblock.online/og-image.png" />
             </Head>
             <div className="flex min-h-screen flex-col bg-background text-foreground font-sans">
                 <BlogHeader />

@@ -41,7 +41,29 @@ export default function Welcome({
     return (
         <>
             <Head title="Home - Glad to have you here">
-                <meta name="description" content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes." />
+                <meta
+                    name="description"
+                    content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes."
+                />
+                {/* Open Graph */}
+                <meta property="og:title" content="Home - Glad to have you here" />
+                <meta
+                    property="og:description"
+                    content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://redblock.online/" />
+                <meta property="og:image" content="https://redblock.online/og-image.png" />
+
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Home - Glad to have you here" />
+                <meta
+                    name="twitter:description"
+                    content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes."
+                />
+                <meta name="twitter:image" content="https://redblock.online/og-image.png" />
+
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link
                     href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"

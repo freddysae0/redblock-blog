@@ -28,7 +28,28 @@ export default function Contact() {
     return (
         <>
             <Head title="Contact Us">
-                <meta name="description" content="Get in touch with the Redblock Online team. We'd love to hear from you!" />
+                <meta
+                    name="description"
+                    content="Get in touch with the Redblock Online team. We'd love to hear from you!"
+                />
+                {/* Open Graph */}
+                <meta property="og:title" content="Contact Us" />
+                <meta
+                    property="og:description"
+                    content="Get in touch with the Redblock Online team. We'd love to hear from you!"
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://redblock.online/contact" />
+                <meta property="og:image" content="https://redblock.online/og-image.png" />
+
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Contact Us" />
+                <meta
+                    name="twitter:description"
+                    content="Get in touch with the Redblock Online team. We'd love to hear from you!"
+                />
+                <meta name="twitter:image" content="https://redblock.online/og-image.png" />
             </Head>
             <div className="flex min-h-screen flex-col bg-background text-foreground font-sans">
                 <BlogHeader />
