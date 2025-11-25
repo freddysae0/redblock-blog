@@ -27,7 +27,7 @@ export default function Contact() {
 
     return (
         <>
-            <Head title="Contact Us | Redblock Online Blog">
+            <Head title="Contact Us">
                 <meta name="description" content="Get in touch with the Redblock Online team. We'd love to hear from you!" />
             </Head>
             <div className="flex min-h-screen flex-col bg-background text-foreground font-sans">

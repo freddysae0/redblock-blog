@@ -6,7 +6,7 @@ import { Box, Users, Globe, Target, Gamepad2, Trophy } from 'lucide-react';
 export default function WhatIsRedblock() {
     return (
         <>
-            <Head title="What is Redblock Online? | FPS Aim Training Platform">
+            <Head title="What is Redblock Online?">
                 <meta name="description" content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes. Join the Circuitbreakers beta program today." />
                 <meta name="keywords" content="aim trainer, FPS training, Valorant aim, CS2 aim, Apex Legends, aim lab alternative, multiplayer aim trainer, world editor" />
 

@@ -6,7 +6,7 @@ import { FaqSection } from '@/components/FaqSection';
 export default function FAQ() {
     return (
         <>
-            <Head title="FAQ | Redblock Online">
+            <Head title="Frequently Asked Questions">
                 <meta
                     name="description"
                     content="Frequently asked questions about Redblock Online, the free and minimalist FPS aim training platform."

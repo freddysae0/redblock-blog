@@ -40,7 +40,7 @@ export default function Welcome({
 
     return (
         <>
-            <Head title="Redblock Online - FPS Aim Training Platform">
+            <Head title="Home - Glad to have you here">
                 <meta name="description" content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes." />
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link

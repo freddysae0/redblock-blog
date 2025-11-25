@@ -25,7 +25,7 @@ export default function Blog() {
 
     return (
         <>
-            <Head title="Blog | Redblock Online">
+            <Head title="Blog">
                 <meta name="description" content="Read the latest articles about aim training, FPS tips, and Redblock Online updates." />
             </Head>
             <div className="flex min-h-screen flex-col bg-background text-foreground">
