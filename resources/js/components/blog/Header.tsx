@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { dashboard, login, register } from '@/routes';
+import { dashboard} from '@/routes';
 import { type SharedData } from '@/types';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Menu, X } from 'lucide-react';

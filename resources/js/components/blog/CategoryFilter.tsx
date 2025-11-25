@@ -1,6 +1,6 @@
 import { router } from '@inertiajs/react';
 import { Search } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Input } from '../ui/input';
 
 interface Category {
@@ -20,18 +20,6 @@ export function CategoryFilter({ categories, activeCategory, searchQuery, sortBy
   const [search, setSearch] = useState(searchQuery || '');
   const [active, setActive] = useState(activeCategory || 'All');
   const [sort, setSort] = useState(sortBy || 'latest');
-
-  useEffect(() => {
-    setSearch(searchQuery || '');
-  }, [searchQuery]);
-
-  useEffect(() => {
-    setActive(activeCategory || 'All');
-  }, [activeCategory]);
-
-  useEffect(() => {
-    setSort(sortBy || 'latest');
-  }, [sortBy]);
 
   const handleCategoryClick = (category: string) => {
     setActive(category);
@@ -57,7 +45,6 @@ export function CategoryFilter({ categories, activeCategory, searchQuery, sortBy
 
   const handleSearch = (value: string) => {
     setSearch(value);
-
     const params = new URLSearchParams();
 
     if (active !== 'All') {
@@ -80,7 +67,6 @@ export function CategoryFilter({ categories, activeCategory, searchQuery, sortBy
 
   const handleSortChange = (value: string) => {
     setSort(value);
-
     const params = new URLSearchParams();
 
     if (active !== 'All') {
