@@ -124,7 +124,7 @@
         .button {
             display: inline-block;
             background-color: #111827;
-            color: !important #ffffff;
+            color: #ffffff !important;
             padding: 14px 36px;
             border-radius: 6px;
             text-decoration: none;
@@ -159,7 +159,7 @@
             <a href="{{ config('app.url') }}">
                 <img src="{{ asset('logo.webp') }}" alt="Redblock Logo" class="logo-image">
             </a>
-            <a href="{{ config('app.url') }}" class="logo-text">
+            <a href="{{ config('app.url') }}" class="logo-text" style="color: #111827 !important; text-decoration: none;">
                 Redblock Online
             </a>
         </div>
@@ -168,7 +168,7 @@
             <div class="badge">New Article</div>
 
             <h1 class="article-title">
-                <a href="{{ route('articles.show', $article->slug) }}">
+                <a href="{{ route('articles.show', $article->slug) }}" style="color: #111827 !important; text-decoration: none;">
                     {{ $article->title }}
                 </a>
             </h1>
@@ -191,7 +191,7 @@
             @endif
 
             <div class="button-container">
-                <a href="{{ route('articles.show', $article->slug) }}" class="button">
+                <a href="{{ route('articles.show', $article->slug) }}" class="button" style="background-color: #111827 !important; color: #ffffff !important; text-decoration: none; display: inline-block; padding: 14px 36px; border-radius: 6px; font-weight: 600; font-size: 14px;">
                     Read Full Article
                 </a>
             </div>
@@ -200,7 +200,7 @@
         <div class="footer">
             <p>&copy; {{ date('Y') }} Redblock Online. All rights reserved.</p>
             <p>
-                <a href="{{ config('app.url') }}/blog">Visit our blog</a>
+                <a href="{{ config('app.url') }}/blog" style="color: #6b7280 !important; text-decoration: none;">Visit our blog</a>
             </p>
         </div>
     </div>
