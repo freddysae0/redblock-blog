@@ -20,10 +20,12 @@ class Article extends Model
         'media_file',
         'user_id',
         'published_at',
+        'notifications_sent',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'notifications_sent' => 'boolean',
     ];
 
     protected $appends = ['media_url'];

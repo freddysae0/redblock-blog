@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ArticleCreatedNotification;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -66,6 +69,21 @@ class ArticleController extends Controller
 
         if (!empty($data['category_ids'])) {
             $article->categories()->sync($data['category_ids']);
+        }
+
+        if ($article->published_at && ! $article->notifications_sent) {
+            $article->load('categories');
+            
+            User::where('wants_notifications', true)
+                ->where('is_disabled', false)
+                ->chunkById(100, function ($users) use ($article) {
+                    foreach ($users as $user) {
+                        Mail::to($user)->queue(new ArticleCreatedNotification($article));
+                    }
+                });
+
+            $article->notifications_sent = true;
+            $article->save();
         }
 
         return redirect()->route('articles.index')->with('success', 'Article created successfully.');
