@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'is_mantainer',
         'is_disabled',
+        'wants_notifications',
     ];
 
     /**
@@ -53,6 +54,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'is_mantainer' => 'boolean',
             'is_disabled' => 'boolean',
+            'wants_notifications' => 'boolean',
         ];
     }
 

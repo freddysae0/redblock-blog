@@ -89,6 +89,19 @@ export default function Profile({
                                     />
                                 </div>
 
+                                <div className="flex items-center gap-2">
+                                    <Input
+                                        id="wants_notifications"
+                                        type="checkbox"
+                                        name="wants_notifications"
+                                        defaultChecked={auth.user.wants_notifications}
+                                        className="h-4 w-4"
+                                    />
+                                    <Label htmlFor="wants_notifications" className="mt-0">
+                                        Receive email notifications
+                                    </Label>
+                                </div>
+
                                 {mustVerifyEmail &&
                                     auth.user.email_verified_at === null && (
                                         <div>
