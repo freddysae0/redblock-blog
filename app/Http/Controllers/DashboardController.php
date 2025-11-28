@@ -46,6 +46,8 @@ class DashboardController extends Controller
 
         // Recent Comments
         $recentComments = Comment::with(['user', 'article'])
+            ->has('article')
+            ->has('user')
             ->latest()
             ->take(5)
             ->get();
