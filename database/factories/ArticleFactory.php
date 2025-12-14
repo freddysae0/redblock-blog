@@ -33,6 +33,8 @@ class ArticleFactory extends Factory
             'total_views' => 0,
             'unique_views' => 0,
             'likes' => 0,
+            'published_at' => $this->faker->dateTimeBetween('-1 year', '+1 year'),
+            'deleted_at' => null
         ];
     }
 }

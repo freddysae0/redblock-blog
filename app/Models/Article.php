@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model
 {
     use HasFactory;
+    use SoftDeletes;  
+
 
     protected $fillable = [
         'title',
@@ -17,10 +20,12 @@ class Article extends Model
         'media_file',
         'user_id',
         'published_at',
+        'notifications_sent',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'notifications_sent' => 'boolean',
     ];
 
     protected $appends = ['media_url'];

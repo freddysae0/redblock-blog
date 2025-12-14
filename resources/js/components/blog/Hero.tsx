@@ -4,7 +4,7 @@ export function Hero() {
   };
 
   return (
-    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[70dvh] flex items-center">
+    <section className="bg-background max-w-7xl mx-auto pt-16 pb-12 md:pt-24 md:pb-20 h-[120vh] md:h-[100vh] flex items-center">
       <div className=" px-8 flex justify-between flex-wrap gap-8">
         <div className="space-y-6" >
           <div className="flex gap-2">
@@ -17,11 +17,15 @@ export function Hero() {
             The Redblock Online blog shares short, practical pieces about aim training, reaction time, and building better warmup routines for competitive games.
           </p>
           <div className="flex gap-3 pt-4">
-            <button className="px-6 py-3 bg-accent text-accent-foreground font-medium rounded-sm hover:bg-accent/90 transition-colors">
-              Read training guides
-            </button>
+
+            <a
+              href="/what-is-redblock/#what-is-next"
+              className="flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium rounded-sm hover:bg-muted transition-colors"
+            >
+              Join Circuitbreakers Beta
+            </a>
             <button onClick={goToRedblockOnline} className="flex items-center gap-2 px-6 py-3 border border-border text-foreground font-medium rounded-sm hover:bg-muted transition-colors">
-              Go to Redblock Online <p>🎮</p>
+              Try our Demo <p>🎮</p>
             </button>
           </div>
         </div>

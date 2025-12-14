@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { dashboard, login, register } from '@/routes';
+import { dashboard} from '@/routes';
 import { type SharedData } from '@/types';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Menu, X } from 'lucide-react';
@@ -39,6 +39,9 @@ export function Header({ canRegister = true }: HeaderProps) {
             </a>
             <a href="/what-is-redblock" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
               What is Redblock Online?
+            </a>
+            <a href="/faq" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
+              FAQ
             </a>
             <a href="/contact" className="text-sm font-medium text-foreground hover:text-accent transition-colors">
               Contact
@@ -104,6 +107,13 @@ export function Header({ canRegister = true }: HeaderProps) {
               onClick={() => setMobileMenuOpen(false)}
             >
               What is Redblock Online?
+            </a>
+            <a
+              href="/faq"
+              className="block py-2 text-sm font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              FAQ
             </a>
             <a
               href="/contact"

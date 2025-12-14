@@ -2,11 +2,25 @@ import { Head } from '@inertiajs/react';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Footer } from '@/components/blog/Footer';
 import { Box, Users, Globe, Target, Gamepad2, Trophy } from 'lucide-react';
+import { useEffect } from 'react';
 
 export default function WhatIsRedblock() {
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        if (window.location.hash === '#what-is-next') {
+            const element = document.getElementById('what-is-next');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, []);
+
     return (
         <>
-            <Head title="What is Redblock Online? | FPS Aim Training Platform">
+            <Head title="What is Redblock Online?">
                 <meta name="description" content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes. Join the Circuitbreakers beta program today." />
                 <meta name="keywords" content="aim trainer, FPS training, Valorant aim, CS2 aim, Apex Legends, aim lab alternative, multiplayer aim trainer, world editor" />
 
@@ -54,8 +68,8 @@ export default function WhatIsRedblock() {
                                 The Future of FPS Training
                             </div>
                             <h1 className="text-4xl md:text-7xl font-bold tracking-tight leading-tight drop-shadow-lg">
-                                Train Smarter. <br />
-                                <span className="text-primary">Build Together.</span>
+                                Train Smarter <br />
+                                <span className="text-primary">Build Together</span>
                             </h1>
                             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed drop-shadow-md">
                                 Redblock Online is not just another aim trainer. It's a community-driven sandbox where you can design immersive scenarios, compete with friends, and train in worlds that feel like real games.
@@ -231,7 +245,7 @@ export default function WhatIsRedblock() {
                     </section>
 
                     {/* What's Next Section */}
-                    <section className="py-20 px-6 max-w-4xl mx-auto">
+                    <section id="what-is-next" className="py-20 px-6 max-w-4xl mx-auto">
                         <div className="text-center space-y-8">
                             <div className="space-y-4">
                                 <h2 className="text-3xl md:text-5xl font-bold">What's Next?</h2>

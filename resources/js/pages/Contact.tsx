@@ -8,6 +8,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormEventHandler } from 'react';
+import { FaqSection } from '@/components/FaqSection';
+import { SeoHead } from '@/components/SeoHead';
 
 export default function Contact() {
     const { data, setData, post, processing, errors, reset, wasSuccessful } = useForm({
@@ -26,9 +28,11 @@ export default function Contact() {
 
     return (
         <>
-            <Head title="Contact Us | Redblock Online Blog">
-                <meta name="description" content="Get in touch with the Redblock Online team. We'd love to hear from you!" />
-            </Head>
+            <SeoHead
+                title="Contact Us"
+                description="Get in touch with the Redblock Online team. We'd love to hear from you!"
+                path="/contact"
+            />
             <div className="flex min-h-screen flex-col bg-background text-foreground font-sans">
                 <BlogHeader />
                 <main className="flex-1">
@@ -88,94 +92,7 @@ export default function Contact() {
                         </div>
 
                         {/* FAQ Section */}
-                        <div className="mb-16">
-                            <div className="text-center mb-12">
-                                <h2 className="text-3xl md:text-4xl font-bold mb-3">Frequently Asked Questions</h2>
-                                <p className="text-muted-foreground">
-                                    Quick answers to common questions
-                                </p>
-                            </div>
-
-                            <div className="max-w-3xl mx-auto space-y-4">
-                                {/* FAQ Item 1 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>What is Redblock Online?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        Redblock Online is an under construction community-driven FPS aim training platform with a powerful world editor, multiplayer training modes, and custom game scenarios. It's designed to help you improve your aim while having fun.
-                                    </p>
-                                </details>
-
-                                {/* FAQ Item 2 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>How can I join the Circuitbreakers beta program?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        You can join the Circuitbreakers beta program by registering on our platform. Just start <a href="/register" className="text-primary hover:underline">here</a> to get early access.
-                                    </p>
-                                </details>
-
-                                {/* FAQ Item 3 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>Is Redblock Online free to use?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        Yes! Redblock Online is free to use. We believe everyone should have access to quality aim training tools to improve their FPS skills.
-                                    </p>
-                                </details>
-
-                                {/* FAQ Item 4 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>What games does Redblock Online support?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        Redblock Online supports game-specific profiles for popular FPS games including Valorant, CS2, Apex Legends, and more. You can train with the exact sensitivity and mechanics of your favorite game.
-                                    </p>
-                                </details>
-
-                                {/* FAQ Item 5 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>How do I report a bug or suggest a feature?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        You can report bugs or suggest features by filling out the contact form below, joining our Telegram channel, or sending us an email at support@redblock.online. We appreciate all feedback!
-                                    </p>
-                                </details>
-
-                                {/* FAQ Item 6 */}
-                                <details className="bg-card border border-border rounded-xl p-6 group hover:border-primary/50 transition-colors">
-                                    <summary className="font-semibold cursor-pointer list-none flex items-center justify-between">
-                                        <span>Can I create my own training scenarios?</span>
-                                        <svg className="h-5 w-5 text-muted-foreground group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                        </svg>
-                                    </summary>
-                                    <p className="mt-4 text-muted-foreground leading-relaxed">
-                                        Absolutely! Redblock Online features a powerful world editor that lets you create custom training scenarios without any coding. You can also share your creations with the community.
-                                    </p>
-                                </details>
-                            </div>
-                        </div>
+                        <FaqSection />
 
                         {/* Contact Form */}
                         <div className="max-w-2xl mx-auto">

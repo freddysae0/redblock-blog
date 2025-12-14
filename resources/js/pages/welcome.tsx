@@ -1,11 +1,12 @@
 
 import { type SharedData } from '@/types';
-import { Head, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import { Header as BlogHeader } from '@/components/blog/Header';
 import { Hero } from '@/components/blog/Hero';
 import { Footer } from '@/components/blog/Footer';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { isVideo } from '@/components/ui/media';
+import { SeoHead } from '@/components/SeoHead';
 
 interface BlogGridArticleCategory {
     id: number;
@@ -40,14 +41,11 @@ export default function Welcome({
 
     return (
         <>
-            <Head title="Redblock Online - FPS Aim Training Platform">
-                <meta name="description" content="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes." />
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link
-                    href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"
-                    rel="stylesheet"
-                />
-            </Head>
+            <SeoHead
+                title="Home - Glad to have you here"
+                description="Redblock Online is a community-driven FPS aim training platform with a powerful world editor, multiplayer training, and custom game modes."
+                path="/"
+            />
             <div className="flex min-h-screen flex-col bg-background text-foreground">
                 <div className="flex flex-1 flex-col">
                     <BlogHeader canRegister={canRegister} />
