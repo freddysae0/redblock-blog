@@ -97,7 +97,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
-Route::get('/blog/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/blog/{article:slug}', [ArticleController::class, 'show'])->name('blog.articles.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');

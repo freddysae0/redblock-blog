@@ -139,7 +139,7 @@
 
             <div class="meta">
                 <strong>{{ $comment->user->name }}</strong> commented on
-                <a href="{{ route('articles.show', $comment->article->slug) }}"
+                <a href="{{ route('blog.articles.show', $comment->article->slug) }}"
                     style="color: #ef4444; text-decoration: none; font-weight: 500;">
                     {{ $comment->article->title }}
                 </a>

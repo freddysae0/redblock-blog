@@ -168,7 +168,7 @@
             <div class="badge">New Article</div>
 
             <h1 class="article-title">
-                <a href="{{ route('articles.show', $article->slug) }}" style="color: #111827 !important; text-decoration: none;">
+                <a href="{{ route('blog.articles.show', $article->slug) }}" style="color: #111827 !important; text-decoration: none;">
                     {{ $article->title }}
                 </a>
             </h1>
@@ -191,7 +191,7 @@
             @endif
 
             <div class="button-container">
-                <a href="{{ route('articles.show', $article->slug) }}" class="button" style="background-color: #111827 !important; color: #ffffff !important; text-decoration: none; display: inline-block; padding: 14px 36px; border-radius: 6px; font-weight: 600; font-size: 14px;">
+                <a href="{{ route('blog.articles.show', $article->slug) }}" class="button" style="background-color: #111827 !important; color: #ffffff !important; text-decoration: none; display: inline-block; padding: 14px 36px; border-radius: 6px; font-weight: 600; font-size: 14px;">
                     Read Full Article
                 </a>
             </div>
