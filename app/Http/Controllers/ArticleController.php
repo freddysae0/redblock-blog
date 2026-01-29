@@ -76,6 +76,7 @@ class ArticleController extends Controller
             
             User::where('wants_notifications', true)
                 ->where('is_disabled', false)
+                ->where('id', '!=', auth()->id())
                 ->chunkById(100, function ($users) use ($article) {
                     foreach ($users as $user) {
                         Mail::to($user)->queue(new ArticleCreatedNotification($article));
