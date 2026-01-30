@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WeatherController;
 use App\Models\Article;
 use App\Models\Category;
 
@@ -31,6 +32,8 @@ ROBOTS;
         'Content-Type' => 'text/plain', 
     ]);
 });
+
+Route::get('/api/weather/bcn', [WeatherController::class, 'bcn'])->name('api.weather.bcn');
 
 Route::get('/', function () {
     // Show popular articles (most recent 6)

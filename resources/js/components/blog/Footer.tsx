@@ -1,11 +1,12 @@
 import { Mail, MessageSquare } from 'lucide-react';
 import AppLogoIcon from '../app-logo-icon';
+import { WeatherBcn } from './WeatherBcn';
 
 export function Footer() {
   return (
     <footer className="bg-background border-t border-border mt-12">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <AppLogoIcon className="h-6" />
@@ -48,6 +49,7 @@ export function Footer() {
               </a>
             </div>
           </div>
+          <WeatherBcn />
         </div>
         <div className="border-t border-border pt-8">
           <p className="text-xs text-muted-foreground text-center">
