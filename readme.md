@@ -2,6 +2,10 @@
 
 A modern blog publishing platform built with **Laravel 12**, **Inertia.js**, **React 19**, and **Tailwind CSS 4**. It ships with an editorial dashboard, article management, category tagging, comment moderation, and built-in analytics for views/engagement.
 
+It is the blog of **[Redblock Online](https://github.com/Redblock-Online/redblock-client)**, the open source aim trainer and world builder. [Play Redblock in the browser →](https://redblock-client.netlify.app/)
+
+<p align="center"><img src="docs/redblock-menu.jpg" alt="Redblock Online main menu" width="820"></p>
+
 ## Feature Highlights
 1. Admin dashboard with article/user/comment statistics and charts.
 2. Full CRUD for articles and categories, including draft/publish workflows.
